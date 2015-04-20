@@ -1,0 +1,25 @@
+﻿@model InventoryManagement_BT.Models.InventoryViewModel
+
+<h2>Take Inventory</h2>
+<div class="row">
+    <div class="col-md-12">
+        @Html.LabelFor(x => x.ItemKey, "Item")
+        @Html.TextBoxFor(x => x.ItemKey)
+        @Html.ValidationMessageFor(x => x.ItemKey)
+
+        @Html.LabelFor(x => x.InventoryOwner, "Inventory Owner")
+        @Html.TextBoxFor(x => x.InventoryOwner)
+        @Html.ValidationMessageFor(x => x.InventoryOwner)
+
+        @
+
+    </div>
+</div>
+
+<p>Inventory Management Page</p>
+
+<p>Scan each item at this location</p>
+<p>A laser scanner can be used to perform the inventory but it
+    must be configured to add a carriage return at the end of the
+    scan
+</p>

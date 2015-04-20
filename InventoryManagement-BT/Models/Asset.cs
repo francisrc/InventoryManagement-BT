@@ -4,6 +4,7 @@ namespace InventoryManagement_BT.Models
     using System.Data.Entity;
     using System.Linq;
     using System.ComponentModel.DataAnnotations;
+    using System.Collections.Generic;
 
     public class Asset : DbContext
     {
@@ -18,7 +19,8 @@ namespace InventoryManagement_BT.Models
         {
         }
 
-        
+        [MaxLength(6)]
+        [Key]
         public int AssetKey { get; set; }
 
         [MaxLength(64)]
@@ -32,6 +34,7 @@ namespace InventoryManagement_BT.Models
         [Required]
         [MaxLength(64)]
         public string InventoryOwner { get; set; }
+
         public string InventoriedBy { get; set; }
         public string InventoryDate  { get; set; }
         public bool IsDisposed { get; set; }

@@ -14,9 +14,9 @@ namespace InventoryManagement_BT
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
 
             routes.MapRoute(
-                name: "Inventory",
+                name: "Take Inventory",
                 url: "inventorymanagement/TakeInventory",
-                defaults: new { controller = "Inventory", action = "Index" });
+                defaults: new { controller = "Inventory", action = "TakeInventory" });
 
             routes.MapRoute(
                 name: "Default",
