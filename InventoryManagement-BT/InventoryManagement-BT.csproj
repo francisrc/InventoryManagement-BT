@@ -210,7 +210,7 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
-    <Compile Include="Controllers\TakeInventoryController.cs" />
+    <Compile Include="Controllers\InventoryController.cs" />
     <Compile Include="DAL\InventoryManagementContext.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -219,13 +219,14 @@
     <Compile Include="Models\Asset.cs" />
     <Compile Include="Models\ClientSite.cs" />
     <Compile Include="Models\IdentityModels.cs" />
-    <Compile Include="Models\InventoryViewModel.cs" />
+    <Compile Include="Models\InventoryFormViewModel.cs" />
     <Compile Include="Models\Location.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\Manufacturer.cs" />
     <Compile Include="Models\Model.cs" />
     <Compile Include="Models\Product.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Services\InventoryManagementRepository.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -304,7 +305,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Services\" />
     <Folder Include="Views\TakeInventory\" />
   </ItemGroup>
   <ItemGroup>

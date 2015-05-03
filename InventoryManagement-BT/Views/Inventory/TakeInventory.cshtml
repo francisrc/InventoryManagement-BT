@@ -1,12 +1,23 @@
-﻿@model InventoryManagement_BT.Models.InventoryViewModel
+﻿@model InventoryManagement_BT.Models.InventoryFormViewModel
 
 <h2>Take Inventory</h2>
 <div class="row">
     <div class="col-md-12">
         @using (Html.BeginForm())
         {
+            @Html.LabelFor(x => x.ItemKey)
+            @Html.TextBoxFor(x => x.ItemKey)
+            
+            
             @Html.LabelFor(x => x.InventoryOwner)
             @Html.TextBoxFor(x => x.InventoryOwner)
+            
+            @Html.LabelFor(x => x.SelectedLocationId)
+            @Html.DropDownListFor(x => x.SelectedLocationId, Model.LocationItems)
+            
+            
+            @Html.HiddenFor(x => x.InventoriedBy)
+            @Html.HiddenFor(x => x.InventoryDate)
 
             <input type="submit" name="" value="Add New Inventory Item" />
 

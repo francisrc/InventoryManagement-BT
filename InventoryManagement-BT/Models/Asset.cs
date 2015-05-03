@@ -12,7 +12,6 @@ namespace InventoryManagement_BT.Models
         {
         }
 
-        [MaxLength(6)]
         [Key]
         public int AssetKey { get; set; }
 
