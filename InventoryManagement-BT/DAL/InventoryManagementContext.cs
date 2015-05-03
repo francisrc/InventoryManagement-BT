@@ -11,6 +11,7 @@ namespace InventoryManagement_BT.DAL
     {
         public InventoryManagementContext() : base("InventoryManagementContext")
         {
+            Database.SetInitializer<InventoryManagementContext>(new LocationsDBInitializer());
         }
 
         public DbSet<Asset> Assets { get; set; }
@@ -19,5 +20,27 @@ namespace InventoryManagement_BT.DAL
         public DbSet<Product> Products { get; set; }
         public DbSet<Manufacturer> Manufacturers { get; set; }
         public DbSet<Model> Models { get; set; }
+    }
+
+    public class LocationsDBInitializer : DropCreateDatabaseAlways<InventoryManagementContext>
+    {
+        protected override void Seed(InventoryManagementContext context)
+        {
+            IList<Location> defaultLocations = new List<Location>();
+
+            defaultLocations.Add(new Location() { Name = "BHM" });
+            defaultLocations.Add(new Location() { Name = "ATL" });
+            defaultLocations.Add(new Location() { Name = "CHT" });
+            defaultLocations.Add(new Location() { Name = "NSH" });
+            defaultLocations.Add(new Location() { Name = "MBL" });
+            defaultLocations.Add(new Location() { Name = "CLT" });
+
+            foreach (var location in defaultLocations)
+            {
+                context.Locations.Add(location);
+            }
+
+            base.Seed(context);
+        }
     }
 }
