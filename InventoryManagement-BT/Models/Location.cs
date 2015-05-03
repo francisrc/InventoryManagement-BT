@@ -6,10 +6,10 @@ using System.Text;
 
 namespace InventoryManagement_BT.Models
 {
-    public class Location : DbContext
+    public class Location
     {
 
-        public Location() : base("name=Location")
+        public Location()
         {
         }
 

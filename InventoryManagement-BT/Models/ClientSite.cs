@@ -6,14 +6,17 @@ using System.Text;
 
 namespace InventoryManagement_BT.Models
 {
-    public class ClientSite : DbContext
+    public class ClientSite
 
     {
-        public ClientSite(): base("name=ClientSite")
+        public ClientSite()
         {
+
         }
 
         public int Id { get; set; }
         public int Name { get; set; }
+
+
     }
 }

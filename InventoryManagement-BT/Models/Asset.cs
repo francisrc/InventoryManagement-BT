@@ -6,16 +6,9 @@ namespace InventoryManagement_BT.Models
     using System.ComponentModel.DataAnnotations;
     using System.Collections.Generic;
 
-    public class Asset : DbContext
+    public class Asset
     {
-        // Your context has been configured to use a 'Asset' connection string from your application's 
-        // configuration file (App.config or Web.config). By default, this connection string targets the 
-        // 'InventoryManagement_BT.Models.Asset' database on your LocalDb instance. 
-        // 
-        // If you wish to target a different database and/or database provider, modify the 'Asset' 
-        // connection string in the application configuration file.
         public Asset()
-            : base("name=Asset")
         {
         }
 

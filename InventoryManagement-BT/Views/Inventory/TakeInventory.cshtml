@@ -3,16 +3,14 @@
 <h2>Take Inventory</h2>
 <div class="row">
     <div class="col-md-12">
-        @Html.LabelFor(x => x.ItemKey, "Item")
-        @Html.TextBoxFor(x => x.ItemKey)
-        @Html.ValidationMessageFor(x => x.ItemKey)
+        @using (Html.BeginForm())
+        {
+            @Html.LabelFor(x => x.InventoryOwner)
+            @Html.TextBoxFor(x => x.InventoryOwner)
 
-        @Html.LabelFor(x => x.InventoryOwner, "Inventory Owner")
-        @Html.TextBoxFor(x => x.InventoryOwner)
-        @Html.ValidationMessageFor(x => x.InventoryOwner)
+            <input type="submit" name="" value="Add New Inventory Item" />
 
-        @
-
+        }
     </div>
 </div>
 
