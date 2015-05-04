@@ -1,0 +1,22 @@
+﻿@model InventoryManagement_BT.Models.TakeInventorySearchResultsViewModel
+
+
+
+
+    @if (Model == null)
+    {
+        <p> Item (item name goes here) Not Found</p>
+        <button>Add Item</button>
+        <button>Cancel</button>
+    }
+    else
+    {
+        <p>@Model.ItemName</p>
+        
+        <button>Submit</button>
+        <button>Modify</button>
+        <button>Cancel</button>
+    }
+
+
+

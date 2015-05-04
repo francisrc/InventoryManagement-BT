@@ -19,18 +19,29 @@ namespace InventoryManagement_BT.Controllers
         {
             InventoryFormViewModel ivvm = new InventoryFormViewModel();
             ivvm.Locations = repo.GetLocations();
+            ivvm.ClientSites = repo.GetClientSites();
+
             return View(ivvm);
         }
 
         [HttpPost]
-        public ActionResult TakeInventory(InventoryFormViewModel model)
+        public PartialViewResult TakeInventory(InventoryFormViewModel model)
         {
             //TODO: Validate the viewmodel
             if (ModelState.IsValid)
             {
-                repo.TakeInventory(model);
+                TakeInventorySearchResultsViewModel item = repo.SearchInventory(model);
+                if (item == null)
+                {
+                    return PartialView("_searchResults", null);
+                }
+                else
+                {
+                    return PartialView("_searchResults", item);
+                }
             }
-            return View();
+
+            return PartialView();
         }
 
 

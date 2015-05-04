@@ -31,8 +31,9 @@ namespace InventoryManagement_BT.Models
         public string InventoryDate  { get; set; }
         public bool IsDisposed { get; set; }
 
+        public virtual Product Product { get; set; }
+
         //Associations
-        public virtual ICollection<Product> Products { get; set; }
         public virtual ICollection<Manufacturer> Manufacturers { get; set; }
         public virtual ICollection<Model> Models { get; set; }
         public virtual ICollection<Location> Locations { get; set; }

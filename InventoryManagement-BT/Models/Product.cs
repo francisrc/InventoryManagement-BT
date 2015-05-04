@@ -1,6 +1,7 @@
 namespace InventoryManagement_BT.Models
 {
     using System;
+    using System.Collections.Generic;
     using System.Data.Entity;
     using System.Linq;
 
@@ -13,6 +14,7 @@ namespace InventoryManagement_BT.Models
 
         public int Id { get; set; }
         public string Name { get; set; }
+
     }
 
 }

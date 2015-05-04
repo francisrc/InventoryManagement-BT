@@ -3,7 +3,7 @@
 <h2>Take Inventory</h2>
 <div class="row">
     <div class="col-md-12">
-        @using (Html.BeginForm())
+        @using (Ajax.BeginForm("TakeInventory", "Inventory", new AjaxOptions { UpdateTargetId = "search-results", InsertionMode = InsertionMode.Replace }))
         {
             @Html.LabelFor(x => x.ItemKey)
             @Html.TextBoxFor(x => x.ItemKey)
@@ -15,6 +15,9 @@
             @Html.LabelFor(x => x.SelectedLocationId)
             @Html.DropDownListFor(x => x.SelectedLocationId, Model.LocationItems)
             
+            @Html.LabelFor(x => x.SelectedClientSiteId)
+            @Html.DropDownListFor(x => x.SelectedClientSiteId, Model.ClientSiteItems)
+            
             
             @Html.HiddenFor(x => x.InventoriedBy)
             @Html.HiddenFor(x => x.InventoryDate)
@@ -24,6 +27,8 @@
         }
     </div>
 </div>
+
+<div id="search-results"></div>
 
 <p>Inventory Management Page</p>
 

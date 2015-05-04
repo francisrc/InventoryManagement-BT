@@ -24,7 +24,7 @@ namespace InventoryManagement_BT.DAL
 
     }
 
-    public class DefaultDBInitializer : DropCreateDatabaseAlways<InventoryManagementContext>
+    public class DefaultDBInitializer : DropCreateDatabaseIfModelChanges<InventoryManagementContext>
     {
         protected override void Seed(InventoryManagementContext context)
         {
@@ -46,6 +46,7 @@ namespace InventoryManagement_BT.DAL
             //create clientsites
             IList<ClientSite> defaultClientSites = new List<ClientSite>();
 
+            defaultClientSites.Add(new ClientSite() { Name = "None" });
             defaultClientSites.Add(new ClientSite() { Name = "Lampo" });
             defaultClientSites.Add(new ClientSite() { Name = "Rollins" });
             defaultClientSites.Add(new ClientSite() { Name = "BCBSTN" });

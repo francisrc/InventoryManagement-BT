@@ -10,15 +10,16 @@ namespace InventoryManagement_BT.Models
     public class InventoryFormViewModel
     {
         public List<Location> Locations { get; set; }
-
+        public List<ClientSite> ClientSites { get; set; }
+        public string InventoriedBy { get; set; }
+        public string InventoryDate { get; set; }
+        public int? ItemKey { get; set; }
+        public string InventoryOwner { get; set; }
 
         public InventoryFormViewModel()
         {
             InventoryDate = DateTime.UtcNow.ToString("MM/DD/yyyy");
         }
-
-        public int? ItemKey { get; set; }
-        public string InventoryOwner { get; set; }
 
         [Display(Name = "Location")]
         public int SelectedLocationId { get; set; }
@@ -28,10 +29,14 @@ namespace InventoryManagement_BT.Models
             get { return new SelectList(Locations, "Id", "Name"); }
         }
 
-        //Has to come from the currently signed in user
-        public string InventoriedBy { get; set; }
+        [Display(Name = "Client Site")]
+        public int SelectedClientSiteId { get; set; }
 
-        //All dates should be formatted as "MM/DD/YYYY"
-        public string InventoryDate { get; set; }
+        public IEnumerable<SelectListItem> ClientSiteItems
+        {
+            get { return new SelectList(ClientSites, "Id", "Name"); }
+        }
+
+
     }
 }
