@@ -306,6 +306,7 @@
     <Content Include="Views\Inventory\TakeInventory.cshtml" />
     <Content Include="Views\Inventory\ViewInventory.cshtml" />
     <Content Include="Views\Inventory\_searchResults.cshtml" />
+    <Content Include="Views\Inventory\_addInventory.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -28,6 +28,19 @@ namespace InventoryManagement_BT.DAL
     {
         protected override void Seed(InventoryManagementContext context)
         {
+            CreateDefaultLocations(context);
+            CreateDefaultClientSites(context);
+            CreateDefaultManufacturers(context);
+            CreateDefaultModels(context);
+            CreateDefaultProducts(context);
+
+            context.SaveChanges();
+
+            base.Seed(context);
+        }
+
+        private void CreateDefaultLocations(InventoryManagementContext context)
+        {
             //create locations
             IList<Location> defaultLocations = new List<Location>();
 
@@ -43,6 +56,10 @@ namespace InventoryManagement_BT.DAL
                 context.Locations.Add(location);
             }
 
+        }
+
+        private void CreateDefaultClientSites(InventoryManagementContext context)
+        {
             //create clientsites
             IList<ClientSite> defaultClientSites = new List<ClientSite>();
 
@@ -59,9 +76,66 @@ namespace InventoryManagement_BT.DAL
                 context.ClientSites.Add(clientSite);
             }
 
-            context.SaveChanges();
-
-            base.Seed(context);
         }
+
+        private void CreateDefaultProducts(InventoryManagementContext context)
+        {
+            //create clientsites
+            IList<Product> defaultProducts = new List<Product>();
+
+            defaultProducts.Add(new Product() { Name = "Printer" });
+            defaultProducts.Add(new Product() { Name = "Laptop" });
+            defaultProducts.Add(new Product() { Name = "Stapler" });
+            defaultProducts.Add(new Product() { Name = "Desktop" });
+            defaultProducts.Add(new Product() { Name = "Surface" });
+            defaultProducts.Add(new Product() { Name = "Macbook" });
+            defaultProducts.Add(new Product() { Name = "Smartphone" });
+
+            foreach (var product in defaultProducts)
+            {
+                context.Products.Add(product);
+            }
+
+        }
+
+        private void CreateDefaultManufacturers(InventoryManagementContext context)
+        {
+            //create clientsites
+            IList<Manufacturer> defaultManufacturers = new List<Manufacturer>();
+
+            defaultManufacturers.Add(new Manufacturer() { Name = "Dell" });
+            defaultManufacturers.Add(new Manufacturer() { Name = "Apple" });
+            defaultManufacturers.Add(new Manufacturer() { Name = "Staples" });
+            defaultManufacturers.Add(new Manufacturer() { Name = "Microsoft" });
+            defaultManufacturers.Add(new Manufacturer() { Name = "HP" });
+            defaultManufacturers.Add(new Manufacturer() { Name = "LexMark" });
+            defaultManufacturers.Add(new Manufacturer() { Name = "Samsung" });
+
+            foreach (var manufacturer in defaultManufacturers)
+            {
+                context.Manufacturers.Add(manufacturer);
+            }       
+        }
+
+        private void CreateDefaultModels(InventoryManagementContext context)
+        {
+            //create clientsites
+            IList<Model> defaultModels = new List<Model>();
+
+            defaultModels.Add(new Model() { Name = "Macbook Pro" });
+            defaultModels.Add(new Model() { Name = "Surface Pro 3" });
+            defaultModels.Add(new Model() { Name = "Galaxy S5" });
+            defaultModels.Add(new Model() { Name = "LaserJet 2000" });
+            defaultModels.Add(new Model() { Name = "Dell Attitude 5111" });
+            defaultModels.Add(new Model() { Name = "Staples 5100 Stapler" });
+            defaultModels.Add(new Model() { Name = "FaxOFun" });
+
+            foreach (var model in defaultModels)
+            {
+                context.Models.Add(model);
+            } 
+
+        }
+
     }
 }
