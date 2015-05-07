@@ -16,7 +16,8 @@ namespace InventoryManagement_BT.DAL
         public DbSet<Manufacturer> Manufacturers { get; set; }
         public DbSet<Model> Models { get; set; }
 
-        public InventoryManagementContext() : base("InventoryManagementContext")
+        public InventoryManagementContext()
+            : base("InventoryManagementContext")
         {
             Database.SetInitializer<InventoryManagementContext>(new DefaultDBInitializer());
         }
@@ -114,7 +115,7 @@ namespace InventoryManagement_BT.DAL
             foreach (var manufacturer in defaultManufacturers)
             {
                 context.Manufacturers.Add(manufacturer);
-            }       
+            }
         }
 
         private void CreateDefaultModels(InventoryManagementContext context)
@@ -133,7 +134,7 @@ namespace InventoryManagement_BT.DAL
             foreach (var model in defaultModels)
             {
                 context.Models.Add(model);
-            } 
+            }
 
         }
 

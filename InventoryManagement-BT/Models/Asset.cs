@@ -8,36 +8,43 @@ namespace InventoryManagement_BT.Models
 
     public class Asset
     {
-        public Asset()
-        {
-        }
+        public Asset(){}
 
         [Key]
+        [Display(Name = "Asset Tag")]
         public int AssetKey { get; set; }
 
         [MaxLength(64)]
+        [Display(Name = "Serial Number")]
         public string SerialNumber { get; set; }
 
         [MaxLength(64)]
+        [Display(Name = "Item Name")]
         public string ItemName { get; set; }
 
-        public string PurchaseDate { get; set; }
+        [Display(Name = "Purchase Date")]
+        public DateTime PurchaseDate { get; set; }
 
         [Required]
         [MaxLength(64)]
+        [Display(Name = "Inventory Owner")]
         public string InventoryOwner { get; set; }
 
+        [Display(Name = "Inventoried By")]
         public string InventoriedBy { get; set; }
-        public string InventoryDate  { get; set; }
+
+        [Display(Name = "Inventory Date")]
+        public DateTime InventoryDate  { get; set; }
+
+        [Display(Name = "Is Disposed")]
         public bool IsDisposed { get; set; }
 
-        public virtual Product Product { get; set; }
-
         //Associations
-        public virtual ICollection<Manufacturer> Manufacturers { get; set; }
-        public virtual ICollection<Model> Models { get; set; }
-        public virtual ICollection<Location> Locations { get; set; }
-        public virtual ICollection<ClientSite> ClientSites { get; set; }
+        public virtual Product Product { get; set; }
+        public virtual Manufacturer Manufacturer { get; set; }
+        public virtual Model Model { get; set; }
+        public virtual Location Location { get; set; }
+        public virtual ClientSite ClientSite { get; set; }
 
     }
 

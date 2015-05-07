@@ -44,6 +44,12 @@ namespace InventoryManagement_BT.Controllers
             return PartialView();
         }
 
+        [HttpGet]
+        public PartialViewResult AddAsset()
+        {
+            return PartialView("_addInventory");
+        }
+
 
     }
 }
