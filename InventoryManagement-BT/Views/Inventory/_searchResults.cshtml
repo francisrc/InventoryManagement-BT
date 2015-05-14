@@ -1,17 +1,10 @@
 ﻿@model InventoryManagement_BT.Models.TakeInventorySearchResultsViewModel
 
-<script type="text/javascript">
-    function TriggerModal() {
-        $(".modal").modal("show");
-    }
-
-</script>
-
 @if (Model == null)
 {
     <p> Item (item name goes here) Not Found</p>
-    @Ajax.ActionLink("Add Item?", "AddAsset", "Inventory", new AjaxOptions { UpdateTargetId = "add-inventory-modal", InsertionMode = InsertionMode.Replace, OnSuccess = "TriggerModal" })
-    <button>Cancel</button>
+    @Ajax.ActionLink("Add Item?", "AddAsset", "Inventory", new AjaxOptions { UpdateTargetId = "add-inventory-modal", InsertionMode = InsertionMode.Replace, OnSuccess = "TriggerAddInventoryModal" }, new { @class = "btn btn-primary" })
+    <button class="btn btn-danger">Cancel</button>
 }
 else
 {

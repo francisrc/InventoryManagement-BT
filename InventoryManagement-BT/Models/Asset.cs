@@ -23,6 +23,7 @@ namespace InventoryManagement_BT.Models
         public string ItemName { get; set; }
 
         [Display(Name = "Purchase Date")]
+        [DataType(DataType.Date)]
         public DateTime PurchaseDate { get; set; }
 
         [Required]
@@ -34,6 +35,7 @@ namespace InventoryManagement_BT.Models
         public string InventoriedBy { get; set; }
 
         [Display(Name = "Inventory Date")]
+        [DataType(DataType.Date)]
         public DateTime InventoryDate  { get; set; }
 
         [Display(Name = "Is Disposed")]

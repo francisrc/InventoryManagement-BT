@@ -1,5 +1,9 @@
 ﻿@model InventoryManagement_BT.Models.InventoryFormViewModel
 
+@section scripts {
+    <script src="@Url.Content("~/Scripts/take-inventory.js")"></script>
+}
+
 <h2>Take Inventory</h2>
 <div class="row">
     <div class="col-md-12">
@@ -7,6 +11,7 @@
         {
             @Html.LabelFor(x => x.ItemKey)
             @Html.TextBoxFor(x => x.ItemKey)
+            @Html.ValidationMessageFor(x => x.ItemKey)
             
             
             @Html.LabelFor(x => x.InventoryOwner)
