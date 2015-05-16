@@ -3,7 +3,7 @@
 @if (Model == null)
 {
     <p> Item (item name goes here) Not Found</p>
-    @Ajax.ActionLink("Add Item?", "AddAsset", "Inventory", new AjaxOptions { UpdateTargetId = "add-inventory-modal", InsertionMode = InsertionMode.Replace, OnSuccess = "TriggerAddInventoryModal" }, new { @class = "btn btn-primary" })
+    @Ajax.ActionLink("Add Item?", "AddAsset", "Inventory", new AjaxOptions { UpdateTargetId = "add-inventory-container", InsertionMode = InsertionMode.InsertAfter, OnSuccess = "TriggerAddInventoryModal" }, new { @class = "btn btn-primary" })
     <button class="btn btn-danger">Cancel</button>
 }
 else

@@ -8,9 +8,14 @@ namespace InventoryManagement_BT.Models
 
     public class Asset
     {
-        public Asset(){}
+        public Asset(){
+            InventoryDate = DateTime.UtcNow;
+            PurchaseDate = DateTime.UtcNow;
+        
+        }
 
         [Key]
+        [Required]
         [Display(Name = "Asset Tag")]
         public int AssetKey { get; set; }
 

@@ -51,5 +51,11 @@ namespace InventoryManagement_BT.Services
             return clientSites;
         }
 
+
+        public void CreateAsset(Asset a)
+        {
+            db.Assets.Add(a);
+            db.SaveChanges();
+        }
     }
 }

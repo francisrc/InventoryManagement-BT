@@ -25,7 +25,7 @@ namespace InventoryManagement_BT.Controllers
         }
 
         [HttpPost]
-        public PartialViewResult TakeInventory(InventoryFormViewModel model)
+        public ActionResult TakeInventory(InventoryFormViewModel model)
         {
             //TODO: Validate the viewmodel
             if (ModelState.IsValid)
@@ -41,15 +41,29 @@ namespace InventoryManagement_BT.Controllers
                 }
             }
 
-            return PartialView();
+            return RedirectToAction("TakeInventory");
         }
 
         [HttpGet]
         public PartialViewResult AddAsset()
         {
-            return PartialView("_addInventory");
+            return PartialView("_addInventory", new Asset());
         }
 
+        [HttpPost]
+        public ActionResult AddAsset(Asset a)
+        {
+            if (ModelState.IsValid)
+            {
+                repo.CreateAsset(a);
+                Response.StatusCode = 200;
+            }
+            else
+            {
+                Response.StatusCode = 422;
+            }
+            return PartialView("_addInventory", a);
+        }
 
     }
 }

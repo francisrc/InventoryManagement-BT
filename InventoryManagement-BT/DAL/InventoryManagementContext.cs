@@ -25,7 +25,7 @@ namespace InventoryManagement_BT.DAL
 
     }
 
-    public class DefaultDBInitializer : DropCreateDatabaseIfModelChanges<InventoryManagementContext>
+    public class DefaultDBInitializer : DropCreateDatabaseAlways<InventoryManagementContext>
     {
         protected override void Seed(InventoryManagementContext context)
         {
@@ -35,9 +35,33 @@ namespace InventoryManagement_BT.DAL
             CreateDefaultModels(context);
             CreateDefaultProducts(context);
 
+            //requires db to contain elements
+            //CreateDefaultAssets(context);
+
             context.SaveChanges();
 
             base.Seed(context);
+        }
+
+        private void CreateDefaultAssets(InventoryManagementContext context)
+        {
+            IList<Asset> defaultAssets = new List<Asset>();
+
+            defaultAssets.Add(new Asset()
+                {
+                    Product = new Product() {Name = "Printer" },
+                    Manufacturer = new Manufacturer() {Name = "HP" },
+                    Model = new Model() {Name = "LaserJet 2300" },
+                    Location = new Location() { Name = "BHM" },
+                    ClientSite = new ClientSite() { Name = "Lampo"},
+                    SerialNumber = "X55321",
+                    ItemName = "prdbhmadmin001"
+                });
+
+            foreach (var asset in defaultAssets)
+            {
+                context.Assets.Add(asset);
+            }
         }
 
         private void CreateDefaultLocations(InventoryManagementContext context)
