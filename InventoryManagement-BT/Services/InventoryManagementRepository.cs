@@ -21,24 +21,15 @@ namespace InventoryManagement_BT.Services
             clientSites = db.ClientSites.ToList();
         }
 
-        public TakeInventorySearchResultsViewModel SearchInventory(InventoryFormViewModel model)
+        public Asset SearchInventory(int? key)
         {
-            Asset a = db.Assets.Find(model.ItemKey);
+            if (key == null) return null;
+
+            Asset a = db.Assets.Find(key);
             if (a == null)
-            {
                 return null;
-            }
             else
-            {
-                return new TakeInventorySearchResultsViewModel() 
-                { 
-                    AssetTag = a.AssetKey,
-                    Product = a.Product.Name
-                };
-
-                    
-            }
-
+                return a;
         }
 
         public List<Location> GetLocations()

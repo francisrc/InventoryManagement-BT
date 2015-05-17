@@ -22,3 +22,9 @@ select,
 textarea {
     max-width: 280px;
 }
+
+/*Removes the validation summary which is always present*/
+.validation-summary-valid
+{
+    display: none;
+}

@@ -8,9 +8,10 @@ namespace InventoryManagement_BT.Models
 
     public class Asset
     {
-        public Asset(){
-            InventoryDate = DateTime.UtcNow;
+        public Asset() {
             PurchaseDate = DateTime.UtcNow;
+            InventoryDate = DateTime.UtcNow;
+
         
         }
 

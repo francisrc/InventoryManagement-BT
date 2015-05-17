@@ -30,7 +30,9 @@ namespace InventoryManagement_BT.Controllers
             //TODO: Validate the viewmodel
             if (ModelState.IsValid)
             {
-                TakeInventorySearchResultsViewModel item = repo.SearchInventory(model);
+
+                Asset item = repo.SearchInventory( model.ItemKey);
+                ViewBag.ItemKey = model.ItemKey;
                 if (item == null)
                 {
                     return PartialView("_searchResults", null);

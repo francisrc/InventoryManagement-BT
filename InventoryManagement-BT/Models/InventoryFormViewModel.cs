@@ -9,17 +9,20 @@ namespace InventoryManagement_BT.Models
 {
     public class InventoryFormViewModel
     {
+        public InventoryFormViewModel()
+        {
+        }
+
         public List<Location> Locations { get; set; }
         public List<ClientSite> ClientSites { get; set; }
+
         public string InventoriedBy { get; set; }
+
         public string InventoryDate { get; set; }
         public int? ItemKey { get; set; }
         public string InventoryOwner { get; set; }
 
-        public InventoryFormViewModel()
-        {
-            InventoryDate = DateTime.UtcNow.ToString("MM/DD/yyyy");
-        }
+
 
         [Display(Name = "Location")]
         public int SelectedLocationId { get; set; }

@@ -1,10 +1,10 @@
-﻿@model InventoryManagement_BT.Models.TakeInventorySearchResultsViewModel
+﻿@model InventoryManagement_BT.Models.Asset
 
 @if (Model == null)
 {
-    <p> Item (item name goes here) Not Found</p>
-    @Ajax.ActionLink("Add Item?", "AddAsset", "Inventory", new AjaxOptions { UpdateTargetId = "add-inventory-container", InsertionMode = InsertionMode.InsertAfter, OnSuccess = "TriggerAddInventoryModal" }, new { @class = "btn btn-primary" })
-    <button class="btn btn-danger">Cancel</button>
+    <p> Item @ViewBag.ItemKey Not Found</p>
+    @Ajax.ActionLink("Add Item?", "AddAsset", "Inventory", new AjaxOptions { UpdateTargetId = "add-inventory-container", InsertionMode = InsertionMode.Replace, OnSuccess = "ShowAddInventoryModal" }, new { @class = "btn btn-primary" })
+    @Html.ActionLink("Cancel", "TakeInventory", "Inventory", null, new {@class = "btn btn-danger" })
 }
 else
 {
@@ -35,7 +35,7 @@ else
         <tbody>
             <tr>
                 <td>
-                    @Model.AssetTag
+                    @Model.AssetKey
                 </td>
                 <td>
                     @Model.Product

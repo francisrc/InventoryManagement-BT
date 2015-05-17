@@ -25,7 +25,7 @@ namespace InventoryManagement_BT.DAL
 
     }
 
-    public class DefaultDBInitializer : DropCreateDatabaseAlways<InventoryManagementContext>
+    public class DefaultDBInitializer : DropCreateDatabaseIfModelChanges<InventoryManagementContext>
     {
         protected override void Seed(InventoryManagementContext context)
         {
