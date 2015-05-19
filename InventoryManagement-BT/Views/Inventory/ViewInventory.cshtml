@@ -1,24 +1,50 @@
-﻿
-@{
-    ViewBag.Title = "ViewInventory";
-}
+﻿@model InventoryManagement_BT.Models.SearchViewModel
 
-<h2>ViewInventory</h2>
 
-<div class="row">
-    <div class="col-md-6">
-        <!--Add Search Fields here
-            
-            Keyword Search : Text Input : No associated model
-            Item : Asset.Id : Asset
-            Location : Asset.Locations, Location.Name : Asset and Location
-            ClientSite: Asset.ClientSites, ClientSite.Name : Asset and ClientSite
-            -->
+<h2>View Inventory</h2>
+<div class="container">
+    <div class="col-lg-6">
+        @using (Html.BeginForm())
+        {
 
+            <div class="row">
+                <div class="col-md-12">
+                    @Html.LabelFor(x => x.KeywordSearch):
+                    @Html.TextBoxFor(x => x.KeywordSearch)
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    @Html.LabelFor(x => x.Item):
+                    @Html.TextBoxFor(x => x.Item)
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    @Html.LabelFor(x => x.SelectedLocationId):
+                    @Html.DropDownListFor(x => x.SelectedLocationId, Model.LocationItems)
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    @Html.LabelFor(x => x.SelectedClientSiteId):
+                    @Html.DropDownListFor(x => x.SelectedClientSiteId, Model.ClientSiteItems)
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <input type="submit" name="submit-search" value="Submit" class="btn btn-primary pull-right" />
+                </div>
+            </div>
+        }
     </div>
     <div class="col-md-6">
-        <p>Enter search criteria to display a list of matching inventory items.</p>
-        <p>Keyword Search will return items containing the keyword in any field.</p>
+        <p>
+            Enter search criteria to display a list of matching inventory items.
+        </p>
+        <p>
+            Keyword Search will return items containing the keyword in any field.
+        </p>
     </div>
+
 </div>
-

@@ -24,6 +24,16 @@ namespace InventoryManagement_BT.Controllers
             return View(ivvm);
         }
 
+        [HttpGet]
+        public ActionResult ViewInventory()
+        {
+            SearchViewModel svm = new SearchViewModel();
+            svm.Locations = repo.GetLocations();
+            svm.ClientSites = repo.GetClientSites();
+
+            return View(svm);
+        }
+
         [HttpPost]
         public ActionResult TakeInventory(InventoryFormViewModel model)
         {
@@ -31,7 +41,7 @@ namespace InventoryManagement_BT.Controllers
             if (ModelState.IsValid)
             {
 
-                Asset item = repo.SearchInventory( model.ItemKey);
+                Asset item = repo.SearchInventory(model.ItemKey);
                 ViewBag.ItemKey = model.ItemKey;
                 if (item == null)
                 {
@@ -49,11 +59,20 @@ namespace InventoryManagement_BT.Controllers
         [HttpGet]
         public PartialViewResult AddAsset()
         {
+            ViewBag.Products = CreateSelectListItem<Product>(repo.GetProducts());
+
+            /*
+            ViewBag.Manufacturers = repo.GetManufacturers();
+            ViewBag.Models = repo.GetModels();
+            ViewBag.Locations = repo.GetLocations();
+            ViewBag.ClientSites = repo.GetClientSites();
+             */
+
             return PartialView("_addInventory", new Asset());
         }
 
         [HttpPost]
-        public ActionResult AddAsset(Asset a)
+        public ActionResult AddAsset(Asset a, Product p)
         {
             if (ModelState.IsValid)
             {
@@ -65,6 +84,11 @@ namespace InventoryManagement_BT.Controllers
                 Response.StatusCode = 422;
             }
             return PartialView("_addInventory", a);
+        }
+
+        private SelectList CreateSelectListItem<T>(List<T> products)
+        {
+            return new SelectList(products, "Id", "Name");
         }
 
     }

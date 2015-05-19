@@ -13,23 +13,26 @@ namespace InventoryManagement_BT.Services
 
         private List<Location> locations;
         private List<ClientSite> clientSites;
+        private List<Product> products;
+        private List<Model> models;
+        private List<Manufacturer> manufacturers;
 
         public InventoryManagementRepository()
         {
 
             locations = db.Locations.ToList();
             clientSites = db.ClientSites.ToList();
+            products = db.Products.ToList();
+            models = db.Models.ToList();
+            manufacturers = db.Manufacturers.ToList();
         }
 
         public Asset SearchInventory(int? key)
         {
             if (key == null) return null;
 
-            Asset a = db.Assets.Find(key);
-            if (a == null)
-                return null;
-            else
-                return a;
+            return db.Assets.Find(key);
+
         }
 
         public List<Location> GetLocations()
@@ -40,6 +43,21 @@ namespace InventoryManagement_BT.Services
         public List<ClientSite> GetClientSites()
         {
             return clientSites;
+        }
+
+        public List<Product> GetProducts()
+        {
+            return products;
+        }
+
+        public List<Model> GetModels()
+        {
+            return models;
+        }
+
+        public List<Manufacturer> GetManufacturers()
+        {
+            return manufacturers;
         }
 
 
