@@ -35,6 +35,32 @@ namespace InventoryManagement_BT.Controllers
         }
 
         [HttpPost]
+        public ActionResult SearchInventory(SearchViewModel svm)
+        {
+            if (ModelState.IsValid)
+            {
+                List<Asset> assets = repo.SearchViewInventory(svm);
+                List<SearchResultsViewModel> searchResults = new List<SearchResultsViewModel>();
+                foreach (var item in assets)
+                {
+                    searchResults.Add(new SearchResultsViewModel()
+                    {
+                        AssetTag = item.AssetKey,
+                        Product = item.Product.Name,
+                        Manufacturer = item.Manufacturer.Name,
+                        Model = item.Model.Name,
+                        Location = item.Location.Name,
+                        InventoryOwner = item.InventoryOwner
+                    });
+                }
+                return View("ViewInventorySearchResults", searchResults);
+
+            }
+            return View(svm);
+        }
+
+
+        [HttpPost]
         public ActionResult TakeInventory(InventoryFormViewModel model)
         {
             //TODO: Validate the viewmodel
@@ -86,10 +112,19 @@ namespace InventoryManagement_BT.Controllers
             return PartialView("_addInventory", a);
         }
 
+        [HttpGet]
+        public ActionResult EditAsset(string assetTag)
+        {
+            return View();
+        }
+
+
         private SelectList CreateSelectListItem<T>(List<T> products)
         {
             return new SelectList(products, "Id", "Name");
         }
+
+
 
     }
 }

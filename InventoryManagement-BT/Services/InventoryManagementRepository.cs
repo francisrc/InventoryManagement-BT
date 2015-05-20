@@ -45,6 +45,12 @@ namespace InventoryManagement_BT.Services
             return clientSites;
         }
 
+        public List<Asset> SearchViewInventory(SearchViewModel svm)
+        {
+            var stringProperties = typeof(Asset).GetProperties().Where(prop => prop.PropertyType == svm.KeywordSearch.GetType()).Select(x => x.ToString()).ToList();
+            return db.Assets.Where(asset => stringProperties.Any(prop => prop == svm.KeywordSearch)).ToList();
+        }
+
         public List<Product> GetProducts()
         {
             return products;

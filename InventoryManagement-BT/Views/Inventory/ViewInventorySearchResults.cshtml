@@ -1,0 +1,35 @@
+﻿@model List<InventoryManagement_BT.Models.SearchResultsViewModel>
+
+
+
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Asset Tag</th>
+            <th>Product</th>
+            <th>Manufacturer</th>
+            <th>Model</th>
+            <th>Location</th>
+            <th>Inventory Owner</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.ActionLink(item.AssetTag, "EditAsset", "Inventory", new { assetTag = item.AssetTag })
+                </td>
+                <td>@item.Product</td>
+                <td> @item.Manufacturer </td>
+                <td>@item.Model</td>
+                <td>@item.Location</td>
+                <td>@item.InventoryOwner</td>
+
+            </tr>
+        }
+    </tbody>
+</table>
+
+
