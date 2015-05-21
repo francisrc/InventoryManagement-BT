@@ -54,6 +54,23 @@ namespace InventoryManagement_BT.Models
         public virtual Location Location { get; set; }
         public virtual ClientSite ClientSite { get; set; }
 
+        public SearchableAsset ConvertToSearchable()
+        {
+            return new SearchableAsset
+            {
+                AssetKey = this.AssetKey,
+                SerialNumber = this.SerialNumber,
+                ItemName = this.ItemName,
+                InventoryOwner = this.InventoryOwner,
+                InventoriedBy = this.InventoriedBy,
+                Product = this.Product.Name,
+                Manufacturer = this.Manufacturer.Name,
+                Model = this.Model.Name,
+                Location = this.Location.Name,
+                ClientSite = this.ClientSite.Name
+            };
+        }
+
     }
 
 }

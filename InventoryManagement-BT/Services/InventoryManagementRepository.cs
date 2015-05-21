@@ -45,10 +45,10 @@ namespace InventoryManagement_BT.Services
             return clientSites;
         }
 
-        public List<Asset> SearchViewInventory(SearchViewModel svm)
+        public List<Asset> SearchAssets(SearchViewModel svm)
         {
-            var stringProperties = typeof(Asset).GetProperties().Where(prop => prop.PropertyType == svm.KeywordSearch.GetType()).Select(x => x.ToString()).ToList();
-            return db.Assets.Where(asset => stringProperties.Any(prop => prop == svm.KeywordSearch)).ToList();
+            var properties = typeof(SearchableAsset).GetProperties().Where(prop => prop.PropertyType == svm.KeywordSearch.GetType());
+            List<Asset> wildcardMatches = db.Assets.AsEnumerable().Where(asset => properties.Any(prop => prop.GetValue(asset.ConvertToSearchable(), null).ToString().Contains(svm.KeywordSearch))).ToList();
         }
 
         public List<Product> GetProducts()
