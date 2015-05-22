@@ -29,40 +29,35 @@
                         <div class="form-group">
                             @Html.LabelFor(model => model.SelectedProductId, htmlAttributes: new { @class = "control-label col-md-2" })
                             <div class="col-md-10">
-                                @Html.LabelFor(x => x.SelectedProductId)
-                                @Html.DropDownListFor(x => x.SelectedProductId, Model.ProductItems)
+                                @Html.DropDownListFor(x => x.SelectedProductId, Model.ProductItems, new { @class = "form-control" })
                             </div>
                         </div>
 
                         <div class="form-group">
                             @Html.LabelFor(model => model.SelectedManufacturerId, htmlAttributes: new { @class = "control-label col-md-2" })
                             <div class="col-md-10">
-                                @Html.LabelFor(x => x.SelectedManufacturerId)
-                                @Html.DropDownListFor(x => x.SelectedManufacturerId, Model.ManufacturerItems)
+                                @Html.DropDownListFor(x => x.SelectedManufacturerId, Model.ManufacturerItems, new { @class = "form-control" } )
                             </div>
                         </div>
 
                         <div class="form-group">
                             @Html.LabelFor(model => model.SelectedModelId, htmlAttributes: new { @class = "control-label col-md-2" })
                             <div class="col-md-10">
-                                @Html.LabelFor(x => x.SelectedModelId)
-                                @Html.DropDownListFor(x => x.SelectedModelId, Model.ModelItems)
+                                @Html.DropDownListFor(x => x.SelectedModelId, Model.ModelItems, new { @class = "form-control" } )
                             </div>
                         </div>
 
                         <div class="form-group">
                             @Html.LabelFor(model => model.SelectedLocationId, htmlAttributes: new { @class = "control-label col-md-2" })
                             <div class="col-md-10">
-                                @Html.LabelFor(x => x.SelectedLocationId)
-                                @Html.DropDownListFor(x => x.SelectedLocationId, Model.LocationItems)
+                                @Html.DropDownListFor(x => x.SelectedLocationId, Model.LocationItems, new { @class = "form-control" } )
                             </div>
                         </div>
 
                         <div class="form-group">
                             @Html.LabelFor(model => model.SelectedClientSiteId, htmlAttributes: new { @class = "control-label col-md-2" })
                             <div class="col-md-10">
-                                @Html.LabelFor(x => x.SelectedClientSiteId)
-                                @Html.DropDownListFor(x => x.SelectedClientSiteId, Model.ClientSiteItems)
+                                @Html.DropDownListFor(x => x.SelectedClientSiteId, Model.ClientSiteItems,  new { @class = "form-control" } )
                             </div>
                         </div>
 
@@ -127,6 +122,7 @@
                         <div class="form-group">
                             <div class="col-md-offset-2 col-md-10">
                                 <input type="submit" value="Save" class="btn btn-default" />
+                                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                             </div>
                         </div>
                     </div>

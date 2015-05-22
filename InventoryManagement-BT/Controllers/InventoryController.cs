@@ -102,8 +102,12 @@ namespace InventoryManagement_BT.Controllers
         {
             if (ModelState.IsValid)
             {
-
+                Response.StatusCode = 200;
             }
+            else {
+                Response.StatusCode = 422;
+            }
+
             avm.Manufacturers = repo.GetManufacturers();
             avm.Models = repo.GetModels();
             avm.Locations = repo.GetLocations();

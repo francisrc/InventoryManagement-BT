@@ -11,15 +11,30 @@ namespace InventoryManagement_BT.Models
     {
         [Key]
         [Required]
-        [Range(1, 999999)]
+        [Display(Name = "Asset Tag")]
         public string AssetTag { get; set; }
 
+        [Display(Name = "Serial Number")]
+        [StringLength(64)]
         public string SerialNumber { get; set; }
+
+        [Display(Name = "Item Name")]
+        [StringLength(64)]
         public string ItemName { get; set; }
+
+        [Display(Name = "Purchase Date")]
         public DateTime PurchaseDate { get; set; }
+
+        [Display(Name = "Inventory Date")]
         public DateTime InventoryDate { get; set; }
+
+        [Display(Name = "Inventory Owner")]
         public string InventoryOwner { get; set; }
+
+        [Display(Name = "Inventoried By")]
         public string InventoriedBy { get; set; }
+
+        [Display(Name = "Is Disposed")]
         public bool IsDisposed { get; set; }
 
 
