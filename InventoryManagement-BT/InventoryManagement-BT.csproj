@@ -217,6 +217,7 @@
     </Compile>
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Asset.cs" />
+    <Compile Include="Models\AssetFormViewModel.cs" />
     <Compile Include="Models\ClientSite.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\InventoryFormViewModel.cs" />
@@ -225,6 +226,7 @@
     <Compile Include="Models\Manufacturer.cs" />
     <Compile Include="Models\Model.cs" />
     <Compile Include="Models\Product.cs" />
+    <Compile Include="Models\SearchableAsset.cs" />
     <Compile Include="Models\SearchResultsViewModel.cs" />
     <Compile Include="Models\SearchViewModel.cs" />
     <Compile Include="Models\TakeInventorySearchResultsViewModel.cs" />
@@ -382,6 +384,7 @@
     <Content Include="Views\Inventory\_addInventory.cshtml" />
     <Content Include="Views\Inventory\ViewInventory.cshtml" />
     <Content Include="Views\Inventory\ViewInventorySearchResults.cshtml" />
+    <Content Include="Views\Inventory\_modifyAsset.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

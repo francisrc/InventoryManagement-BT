@@ -39,18 +39,18 @@ namespace InventoryManagement_BT.Controllers
         {
             if (ModelState.IsValid)
             {
-                List<Asset> assets = repo.SearchViewInventory(svm);
+                List<Asset> assets = repo.SearchAssets(svm);
                 List<SearchResultsViewModel> searchResults = new List<SearchResultsViewModel>();
-                foreach (var item in assets)
+                foreach (var asset in assets)
                 {
                     searchResults.Add(new SearchResultsViewModel()
                     {
-                        AssetTag = item.AssetKey,
-                        Product = item.Product.Name,
-                        Manufacturer = item.Manufacturer.Name,
-                        Model = item.Model.Name,
-                        Location = item.Location.Name,
-                        InventoryOwner = item.InventoryOwner
+                        AssetTag = asset.AssetKey.ToString(),
+                        Product = asset.Product.Name,
+                        Manufacturer = asset.Manufacturer.Name,
+                        Model = asset.Model.Name,
+                        Location = asset.Location.Name,
+                        InventoryOwner = asset.InventoryOwner
                     });
                 }
                 return View("ViewInventorySearchResults", searchResults);
@@ -67,7 +67,7 @@ namespace InventoryManagement_BT.Controllers
             if (ModelState.IsValid)
             {
 
-                Asset item = repo.SearchInventory(model.ItemKey);
+                Asset item = repo.FindAssetByKey(model.ItemKey);
                 ViewBag.ItemKey = model.ItemKey;
                 if (item == null)
                 {
@@ -85,16 +85,16 @@ namespace InventoryManagement_BT.Controllers
         [HttpGet]
         public PartialViewResult AddAsset()
         {
-            ViewBag.Products = CreateSelectListItem<Product>(repo.GetProducts());
+            AssetFormViewModel avm = new AssetFormViewModel();
 
-            /*
-            ViewBag.Manufacturers = repo.GetManufacturers();
-            ViewBag.Models = repo.GetModels();
-            ViewBag.Locations = repo.GetLocations();
-            ViewBag.ClientSites = repo.GetClientSites();
-             */
+            avm.Manufacturers = repo.GetManufacturers();
+            avm.Models = repo.GetModels();
+            avm.Locations = repo.GetLocations();
+            avm.ClientSites = repo.GetClientSites();
+            avm.Products = repo.GetProducts();
+           
 
-            return PartialView("_addInventory", new Asset());
+            return PartialView("_modifyAsset", avm);
         }
 
         [HttpPost]

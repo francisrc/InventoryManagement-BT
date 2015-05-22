@@ -27,7 +27,7 @@ namespace InventoryManagement_BT.Services
             manufacturers = db.Manufacturers.ToList();
         }
 
-        public Asset SearchInventory(int? key)
+        public Asset FindAssetByKey(int? key)
         {
             if (key == null) return null;
 
@@ -49,6 +49,7 @@ namespace InventoryManagement_BT.Services
         {
             var properties = typeof(SearchableAsset).GetProperties().Where(prop => prop.PropertyType == svm.KeywordSearch.GetType());
             List<Asset> wildcardMatches = db.Assets.AsEnumerable().Where(asset => properties.Any(prop => prop.GetValue(asset.ConvertToSearchable(), null).ToString().Contains(svm.KeywordSearch))).ToList();
+            return wildcardMatches;
         }
 
         public List<Product> GetProducts()

@@ -19,10 +19,10 @@ namespace InventoryManagement_BT.DAL
         public InventoryManagementContext()
             : base("InventoryManagementContext")
         {
-            Database.SetInitializer<InventoryManagementContext>(new DefaultDBInitializer());
+            Database.SetInitializer(new DefaultDBInitializer());
         }
 
-
+        public DbSet<AssetFormViewModel> AssetFormViewModels { get; set; }
     }
 
     public class DefaultDBInitializer : DropCreateDatabaseIfModelChanges<InventoryManagementContext>
