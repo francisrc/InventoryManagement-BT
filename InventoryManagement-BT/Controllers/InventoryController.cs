@@ -98,18 +98,18 @@ namespace InventoryManagement_BT.Controllers
         }
 
         [HttpPost]
-        public ActionResult AddAsset(Asset a, Product p)
+        public ActionResult UpdateAsset(AssetFormViewModel avm)
         {
             if (ModelState.IsValid)
             {
-                repo.CreateAsset(a);
-                Response.StatusCode = 200;
+
             }
-            else
-            {
-                Response.StatusCode = 422;
-            }
-            return PartialView("_addInventory", a);
+            avm.Manufacturers = repo.GetManufacturers();
+            avm.Models = repo.GetModels();
+            avm.Locations = repo.GetLocations();
+            avm.ClientSites = repo.GetClientSites();
+            avm.Products = repo.GetProducts();
+            return PartialView("_modifyAsset", avm);
         }
 
         [HttpGet]
