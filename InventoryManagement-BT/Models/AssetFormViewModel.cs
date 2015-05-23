@@ -9,6 +9,13 @@ namespace InventoryManagement_BT.Models
 {
     public class AssetFormViewModel
     {
+        public AssetFormViewModel()
+        {
+            PurchaseDate = DateTime.UtcNow;
+            InventoryDate = DateTime.UtcNow;
+        }
+
+
         [Key]
         [Required]
         [Display(Name = "Asset Tag")]
@@ -29,9 +36,12 @@ namespace InventoryManagement_BT.Models
         public DateTime InventoryDate { get; set; }
 
         [Display(Name = "Inventory Owner")]
+        [Required]
+        [StringLength(64)]
         public string InventoryOwner { get; set; }
 
         [Display(Name = "Inventoried By")]
+        [StringLength(64, MinimumLength = 6)]
         public string InventoriedBy { get; set; }
 
         [Display(Name = "Is Disposed")]

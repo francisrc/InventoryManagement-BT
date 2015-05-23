@@ -103,6 +103,22 @@ namespace InventoryManagement_BT.Controllers
             if (ModelState.IsValid)
             {
                 Response.StatusCode = 200;
+                Asset a = new Asset
+                {
+                    Product = repo.GetProductById(avm.SelectedProductId),
+                    Manufacturer = repo.GetManufacturerById(avm.SelectedManufacturerId),
+                    Model = repo.GetModelById(avm.SelectedModelId),
+                    Location = repo.GetLocationById(avm.SelectedLocationId),
+                    ClientSite = repo.GetClientSiteById(avm.SelectedClientSiteId),
+                    AssetKey = int.Parse(avm.AssetTag),
+                    SerialNumber = avm.SerialNumber,
+                    ItemName = avm.ItemName,
+                    InventoryOwner = avm.InventoryOwner,
+                    InventoriedBy = avm.InventoriedBy,
+                    InventoryDate = avm.InventoryDate,
+                    IsDisposed = avm.IsDisposed
+                };
+                repo.ModifyAsset(a);
             }
             else {
                 Response.StatusCode = 422;

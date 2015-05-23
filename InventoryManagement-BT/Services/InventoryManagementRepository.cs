@@ -19,7 +19,7 @@ namespace InventoryManagement_BT.Services
 
         public InventoryManagementRepository()
         {
-
+            //These aren't likely to change in our project so we generate our lists of these only once
             locations = db.Locations.ToList();
             clientSites = db.ClientSites.ToList();
             products = db.Products.ToList();
@@ -72,6 +72,48 @@ namespace InventoryManagement_BT.Services
         {
             db.Assets.Add(a);
             db.SaveChanges();
+        }
+
+        public Product GetProductById(int selectedProductId)
+        {
+            return db.Products.Find(selectedProductId);
+        }
+
+        public void ModifyAsset(Asset a)
+        {
+            Asset oldAsset = db.Assets.Find(a.AssetKey);
+
+            //creating a new asset
+            if (oldAsset == null)
+            {
+                db.Assets.Add(a);
+            }
+            else
+            {
+                //we are updating an existing item
+                db.Entry(a).State = System.Data.Entity.EntityState.Modified;    
+            }
+            db.SaveChanges();
+        }
+
+        public Manufacturer GetManufacturerById(int selectedManufacturerId)
+        {
+            return db.Manufacturers.Find(selectedManufacturerId);
+        }
+
+        public Model GetModelById(int selectedModelId)
+        {
+            return db.Models.Find(selectedModelId);
+        }
+
+        public Location GetLocationById(int selectedLocationId)
+        {
+            return db.Locations.Find(selectedLocationId);
+        }
+
+        public ClientSite GetClientSiteById(int selectedClientSiteId)
+        {
+            return db.ClientSites.Find(selectedClientSiteId);
         }
     }
 }
