@@ -2,6 +2,7 @@
 using InventoryManagement_BT.Models;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Web;
 
@@ -30,9 +31,13 @@ namespace InventoryManagement_BT.Services
         public Asset FindAssetByKey(int? key)
         {
             if (key == null) return null;
+            return db.Assets.DefaultIfEmpty().SingleOrDefault(a => a.AssetKey == key);
 
-            return db.Assets.Find(key);
+        }
 
+        public List<Asset> GetAssets()
+        {
+            return db.Assets.ToList();
         }
 
         public List<Location> GetLocations()
@@ -67,6 +72,14 @@ namespace InventoryManagement_BT.Services
             return manufacturers;
         }
 
+        public Asset FindBySearchQuery(InventoryFormViewModel model)
+        {
+            db.Assets.Where(a => a.AssetKey == model.ItemKey)
+                .Where(a => a.InventoryOwner == model.InventoryOwner)
+                .Where(a => a.ClientSite.Id == model.SelectedClientSiteId)
+                .Where
+
+        }
 
         public void CreateAsset(Asset a)
         {
@@ -90,8 +103,8 @@ namespace InventoryManagement_BT.Services
             }
             else
             {
-                //we are updating an existing item
-                db.Entry(a).State = System.Data.Entity.EntityState.Modified;    
+                db.Assets.Attach(a);
+                db.Entry(a).State = EntityState.Modified;   
             }
             db.SaveChanges();
         }

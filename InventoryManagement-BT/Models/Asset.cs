@@ -5,19 +5,19 @@ namespace InventoryManagement_BT.Models
     using System.Linq;
     using System.ComponentModel.DataAnnotations;
     using System.Collections.Generic;
+    using System.ComponentModel.DataAnnotations.Schema;
 
     public class Asset
     {
         public Asset() {
             PurchaseDate = DateTime.UtcNow;
             InventoryDate = DateTime.UtcNow;
-
-        
         }
 
         [Key]
         [Required]
         [Display(Name = "Asset Tag")]
+        [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public int AssetKey { get; set; }
 
         [MaxLength(64)]

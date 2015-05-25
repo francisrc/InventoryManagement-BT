@@ -9,17 +9,20 @@ namespace InventoryManagement_BT.Models
 {
     public class InventoryFormViewModel
     {
-        public InventoryFormViewModel()
-        {
-        }
+        public InventoryFormViewModel() { }
+
+        [Display(Name = "Item")]
+        public int? ItemKey { get; set; }
 
         public List<Location> Locations { get; set; }
         public List<ClientSite> ClientSites { get; set; }
 
+        [Display(Name = "Inventoried By")]
         public string InventoriedBy { get; set; }
 
         public string InventoryDate { get; set; }
-        public int? ItemKey { get; set; }
+
+        [Display(Name = "Inventory Owner")]
         public string InventoryOwner { get; set; }
 
 

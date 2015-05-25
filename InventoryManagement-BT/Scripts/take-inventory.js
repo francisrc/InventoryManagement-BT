@@ -9,7 +9,11 @@ function ShowAddInventoryModal() {
     $('.datepicker').datepicker({
         format: 'mm/dd/yyyy'
     }); //Initialise any date pickers
+    
+}
 
+function HideTakeInventoryDescription() {
+    $("#take-inventory-description").hide();
 }
 
 function TriggerAddInventoryModal() {

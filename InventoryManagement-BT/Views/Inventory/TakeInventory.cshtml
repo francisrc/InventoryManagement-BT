@@ -1,53 +1,65 @@
 ﻿@model InventoryManagement_BT.Models.InventoryFormViewModel
 
 @section scripts {
-
     <script src="@Url.Content("~/Scripts/take-inventory.js")"></script>
-
-    <script type="text/javascript">
-    </script>
-
-
 }
 
 <h2>Take Inventory</h2>
 <div class="row">
     <div class="col-md-12">
-        @using (Ajax.BeginForm("TakeInventory", "Inventory", new AjaxOptions { UpdateTargetId = "search-results", InsertionMode = InsertionMode.Replace }))
+        @using (Ajax.BeginForm("TakeInventory", "Inventory", new AjaxOptions { UpdateTargetId = "search-results", InsertionMode = InsertionMode.Replace, OnSuccess = "HideTakeInventoryDescription" }, new { @class = "form-inline" }))
         {
-            @Html.LabelFor(x => x.ItemKey)
-            @Html.TextBoxFor(x => x.ItemKey)
-            @Html.ValidationMessageFor(x => x.ItemKey)
-            
-            
-            @Html.LabelFor(x => x.InventoryOwner)
-            @Html.TextBoxFor(x => x.InventoryOwner)
-            
-            @Html.LabelFor(x => x.SelectedLocationId)
-            @Html.DropDownListFor(x => x.SelectedLocationId, Model.LocationItems)
-            
-            @Html.LabelFor(x => x.SelectedClientSiteId)
-            @Html.DropDownListFor(x => x.SelectedClientSiteId, Model.ClientSiteItems)
-            
-            
-            @Html.HiddenFor(x => x.InventoriedBy)
-            @Html.HiddenFor(x => x.InventoryDate)
+            <div class="row">
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
 
-            <input type="submit" name="" value="Add New Inventory Item" />
+                <div class="form-group col-md-3">
+                    @Html.LabelFor(x => x.ItemKey, new { @class = "control-label" }):
+                    @Html.TextBoxFor(x => x.ItemKey, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(x => x.ItemKey, "", new { @class = "text-danger" })
+                </div>
+
+                <div class="form-group col-md-3">
+                    @Html.LabelFor(x => x.InventoryOwner, new { @class = "control-label" }):
+                    @Html.TextBoxFor(x => x.InventoryOwner, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(x => x.InventoryOwner)
+                </div>
+
+                <div class="form-group col-md-3">
+                    @Html.LabelFor(x => x.SelectedLocationId):
+                    @Html.DropDownListFor(x => x.SelectedLocationId, Model.LocationItems, new { @class = "form-control" })
+                </div>
+
+                <div class="form-group col-md-3">
+                    @Html.LabelFor(x => x.SelectedClientSiteId):
+                    @Html.DropDownListFor(x => x.SelectedClientSiteId, Model.ClientSiteItems, new { @class = "form-control" })
+                </div>
+
+                @Html.HiddenFor(x => x.InventoriedBy)
+                @Html.HiddenFor(x => x.InventoryDate)
+
+                <button type="submit" class="btn btn-default">Add New Inventory Item</button>
+            </div>
 
         }
     </div>
+
 </div>
+
 
 <div id="search-results"></div>
 
-<p>Inventory Management Page</p>
+<div class="row" id="take-inventory-description">
 
-<p>Scan each item at this location</p>
-<p>A laser scanner can be used to perform the inventory but it
-    must be configured to add a carriage return at the end of the
-    scan
-</p>
+    <div class="col-md-6 col-md-offset-3">
+        <p>Scan each item at this location</p>
+        <p>
+            A laser scanner can be used to perform the inventory but it
+            must be configured to add a carriage return at the end of the
+            scan
+        </p>
+    </div>
+
+</div>
 
 <div id="add-inventory-container"></div>
 

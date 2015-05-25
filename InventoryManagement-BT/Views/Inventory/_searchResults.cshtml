@@ -2,14 +2,18 @@
 
 @if (Model == null)
 {
-    <p> Item @ViewBag.ItemKey Not Found</p>
-    @Ajax.ActionLink("Add Item?", "AddAsset", "Inventory", new AjaxOptions { UpdateTargetId = "add-inventory-container", InsertionMode = InsertionMode.Replace, OnSuccess = "ShowAddInventoryModal" }, new { @class = "btn btn-primary" })
-    @Html.ActionLink("Cancel", "TakeInventory", "Inventory", null, new {@class = "btn btn-danger" })
+    <div class="row">
+        <div class="col-md-12">
+            <span class="error-text"> Item @ViewBag.ItemKey Not Found</span>
+            @Ajax.ActionLink("Add Item?", "AddAsset", "Inventory", new AjaxOptions { UpdateTargetId = "add-inventory-container", InsertionMode = InsertionMode.Replace, OnSuccess = "ShowAddInventoryModal" }, new { @class = "btn btn-primary" })
+            @Html.ActionLink("Cancel", "TakeInventory", "Inventory", null, new { @class = "btn btn-danger" })
+        </div>
+    </div>
+
 }
 else
 {
-    <p>@Model.ItemName</p>
-    <table class="table-bordered">
+    <table class="table table-bordered">
         <thead>
             <tr>
                 <th>
@@ -38,13 +42,13 @@ else
                     @Model.AssetKey
                 </td>
                 <td>
-                    @Model.Product
+                    @Model.Product.Name
                 </td>
                 <td>
-                    @Model.Manufacturer
+                    @Model.Manufacturer.Name
                 </td>
                 <td>
-                    @Model.Model
+                    @Model.Model.Name
                 </td>
                 <td>
                     @Model.SerialNumber
@@ -55,9 +59,10 @@ else
             </tr>
         </tbody>
     </table>
+    <p>Last Inventory Date: @Model.InventoryDate.ToString("MM/dd/yyyy")</p>
 
-    <button>Submit</button>
-    <button>Modify</button>
+    <button class="btn btn-primary">Submit</button>
+    @Ajax.ActionLink("Modify", "EditAsset", new { assetKey = Model.AssetKey }, new AjaxOptions { UpdateTargetId = "add-inventory-container", InsertionMode = InsertionMode.Replace, OnSuccess = "ShowAddInventoryModal" }, new {@class = "btn btn-info" } )
     @Html.ActionLink("Cancel", "TakeInventory", "Inventory", null, new { @class = "btn btn-danger" })
 }
 

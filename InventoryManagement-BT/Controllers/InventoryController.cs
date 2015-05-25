@@ -63,11 +63,11 @@ namespace InventoryManagement_BT.Controllers
         [HttpPost]
         public ActionResult TakeInventory(InventoryFormViewModel model)
         {
-            //TODO: Validate the viewmodel
+
             if (ModelState.IsValid)
             {
 
-                Asset item = repo.FindAssetByKey(model.ItemKey);
+                Asset item = repo.FindBySearchQuery(model);
                 ViewBag.ItemKey = model.ItemKey;
                 if (item == null)
                 {
@@ -81,6 +81,33 @@ namespace InventoryManagement_BT.Controllers
 
             return RedirectToAction("TakeInventory");
         }
+
+        [HttpGet]
+        public PartialViewResult EditAsset(int assetKey)
+        {
+            Asset a = repo.FindAssetByKey(assetKey);
+            AssetFormViewModel afvm = new AssetFormViewModel
+            {
+                AssetTag = a.AssetKey.ToString(),
+                ItemName = a.ItemName,
+                SerialNumber = a.SerialNumber,
+                InventoriedBy = a.InventoriedBy,
+                InventoryOwner = a.InventoryOwner,
+                PurchaseDate = a.PurchaseDate,
+                IsDisposed = a.IsDisposed,
+                InventoryDate = a.InventoryDate
+            };
+
+            afvm.Manufacturers = repo.GetManufacturers();
+            afvm.Models = repo.GetModels();
+            afvm.Locations = repo.GetLocations();
+            afvm.ClientSites = repo.GetClientSites();
+            afvm.Products = repo.GetProducts();
+
+            return PartialView("_modifyAsset", afvm);
+        }
+
+
 
         [HttpGet]
         public PartialViewResult AddAsset()
@@ -119,6 +146,7 @@ namespace InventoryManagement_BT.Controllers
                     IsDisposed = avm.IsDisposed
                 };
                 repo.ModifyAsset(a);
+                var assets = repo.GetAssets();
             }
             else {
                 Response.StatusCode = 422;
@@ -131,19 +159,6 @@ namespace InventoryManagement_BT.Controllers
             avm.Products = repo.GetProducts();
             return PartialView("_modifyAsset", avm);
         }
-
-        [HttpGet]
-        public ActionResult EditAsset(string assetTag)
-        {
-            return View();
-        }
-
-
-        private SelectList CreateSelectListItem<T>(List<T> products)
-        {
-            return new SelectList(products, "Id", "Name");
-        }
-
 
 
     }

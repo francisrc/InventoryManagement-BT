@@ -32,3 +32,15 @@ textarea {
 .checkbox input[type="checkbox"] {
     margin-left: 0;
 }
+
+.row {
+    padding-top: 24px;
+}
+
+.error-text {
+    color: red;
+}
+
+#search-results {
+    padding-top: 24px;
+}
