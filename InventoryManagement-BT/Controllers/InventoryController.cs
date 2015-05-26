@@ -21,6 +21,9 @@ namespace InventoryManagement_BT.Controllers
             ivvm.Locations = repo.GetLocations();
             ivvm.ClientSites = repo.GetClientSites();
 
+            ivvm.InventoryDate = DateTime.Now.ToString("MM/dd/yyyy");
+            ivvm.InventoriedBy = "Robert Newton"; //Default used since we don't have AD connected
+
             return View(ivvm);
         }
 
@@ -95,7 +98,12 @@ namespace InventoryManagement_BT.Controllers
                 InventoryOwner = a.InventoryOwner,
                 PurchaseDate = a.PurchaseDate,
                 IsDisposed = a.IsDisposed,
-                InventoryDate = a.InventoryDate
+                InventoryDate = a.InventoryDate,
+                SelectedManufacturerId = a.Manufacturer.Id,
+                SelectedModelId = a.Model.Id,
+                SelectedProductId = a.Product.Id,
+                SelectedClientSiteId = a.ClientSite.Id,
+                SelectedLocationId = a.Location.Id
             };
 
             afvm.Manufacturers = repo.GetManufacturers();
@@ -145,8 +153,7 @@ namespace InventoryManagement_BT.Controllers
                     InventoryDate = avm.InventoryDate,
                     IsDisposed = avm.IsDisposed
                 };
-                repo.ModifyAsset(a);
-                var assets = repo.GetAssets();
+                repo.UpdateAsset(a);
             }
             else {
                 Response.StatusCode = 422;
@@ -157,6 +164,7 @@ namespace InventoryManagement_BT.Controllers
             avm.Locations = repo.GetLocations();
             avm.ClientSites = repo.GetClientSites();
             avm.Products = repo.GetProducts();
+
             return PartialView("_modifyAsset", avm);
         }
 

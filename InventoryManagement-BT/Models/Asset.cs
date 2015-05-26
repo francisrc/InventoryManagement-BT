@@ -71,6 +71,13 @@ namespace InventoryManagement_BT.Models
             };
         }
 
+        public void UpdateProperties(Asset newAsset)
+        {
+            this.SerialNumber = newAsset.SerialNumber;
+            this.PurchaseDate = newAsset.PurchaseDate;
+            this.ItemName = newAsset.ItemName;
+            this.ClientSite = newAsset.ClientSite;
+        }
     }
 
 }
