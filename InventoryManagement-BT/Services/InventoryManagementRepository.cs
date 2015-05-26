@@ -74,11 +74,12 @@ namespace InventoryManagement_BT.Services
 
         public Asset FindBySearchQuery(InventoryFormViewModel model)
         {
-            db.Assets.Where(a => a.AssetKey == model.ItemKey)
+            return db.Assets.DefaultIfEmpty()
+                .Where(a => a.AssetKey == model.ItemKey)
                 .Where(a => a.InventoryOwner == model.InventoryOwner)
                 .Where(a => a.ClientSite.Id == model.SelectedClientSiteId)
-                .Where
-
+                .Where(a => a.Location.Id == model.SelectedLocationId)
+                .SingleOrDefault();
         }
 
         public void CreateAsset(Asset a)
@@ -92,19 +93,20 @@ namespace InventoryManagement_BT.Services
             return db.Products.Find(selectedProductId);
         }
 
-        public void ModifyAsset(Asset a)
+        public void UpdateAsset(Asset newAsset)
         {
-            Asset oldAsset = db.Assets.Find(a.AssetKey);
+            var oldAsset = db.Assets.Find(newAsset.AssetKey);
 
             //creating a new asset
             if (oldAsset == null)
             {
-                db.Assets.Add(a);
+                db.Assets.Add(newAsset);
             }
             else
             {
-                db.Assets.Attach(a);
-                db.Entry(a).State = EntityState.Modified;   
+                oldAsset.UpdateProperties(newAsset);
+                db.Entry(oldAsset).State = EntityState.Modified;
+
             }
             db.SaveChanges();
         }
