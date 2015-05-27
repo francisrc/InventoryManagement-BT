@@ -1,6 +1,13 @@
 ﻿@model InventoryManagement_BT.Models.AssetFormViewModel
 
-
+<script>
+    $(function() {
+        assetTag = $("#AssetTag")
+        val = assetTag.data("disabled");
+        if (val == "False")
+            assetTag.attr("readonly", "readonly")
+    })
+</script>
 
 <!-- Modal -->
 <div class="modal" id="add-inventory-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
@@ -21,7 +28,7 @@
                         <div class="form-group">
                             @Html.LabelFor(model => model.AssetTag, htmlAttributes: new { @class = "control-label col-md-2" })
                             <div class="col-md-10">
-                                @Html.EditorFor(model => model.AssetTag, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.EditorFor(model => model.AssetTag, new { htmlAttributes = new { @class = "form-control", data_disabled = Model.IsReadOnly} })
                                 @Html.ValidationMessageFor(model => model.AssetTag, "", new { @class = "text-danger" })
                             </div>
                         </div>

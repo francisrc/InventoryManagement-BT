@@ -71,12 +71,24 @@ namespace InventoryManagement_BT.Models
             };
         }
 
+        /// <summary>
+        /// Update all properties of this Asset with that new asset
+        /// </summary>
+        /// <param name="newAsset"></param>
         public void UpdateProperties(Asset newAsset)
         {
             this.SerialNumber = newAsset.SerialNumber;
             this.PurchaseDate = newAsset.PurchaseDate;
             this.ItemName = newAsset.ItemName;
             this.ClientSite = newAsset.ClientSite;
+            this.Product = newAsset.Product;
+            this.Model = newAsset.Model;
+            this.Manufacturer = newAsset.Manufacturer;
+            this.PurchaseDate = newAsset.PurchaseDate;
+            this.InventoriedBy = newAsset.InventoriedBy;
+            this.InventoryDate = newAsset.InventoryDate;
+            this.IsDisposed = newAsset.IsDisposed;
+            this.Location = newAsset.Location;
         }
     }
 

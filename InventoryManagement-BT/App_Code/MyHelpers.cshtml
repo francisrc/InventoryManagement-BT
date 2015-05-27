@@ -1,0 +1,11 @@
+﻿@functions  
+{
+    object GetHTMLAttributes(bool isReadOnly, string cssClass)
+    {
+        if (isReadOnly)
+        {
+            return new { @class = cssClass, @readonly = "readonly" };
+        }
+        return new { @class = cssClass };
+    }
+}

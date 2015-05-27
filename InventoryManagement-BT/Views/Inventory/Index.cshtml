@@ -1,8 +1,91 @@
-﻿
-@{
-    ViewBag.Title = "Index";
-}
+﻿@model IEnumerable<InventoryManagement_BT.Models.Asset>
+<h2>All Current Assets</h2>
+    <table class="table">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.AssetKey)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.SerialNumber)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ItemName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.PurchaseDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.InventoryOwner)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.InventoriedBy)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.InventoryDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.IsDisposed)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Product)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Manufacturer)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Model)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Location)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ClientSite)
+            </th>
+        </tr>
+    
+    @foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelitem => item.AssetKey)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.SerialNumber)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ItemName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PurchaseDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.InventoryOwner)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.InventoriedBy)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.InventoryDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.IsDisposed)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Product.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Manufacturer.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Model.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Location.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ClientSite.Name)
+            </td>
+        </tr>
 
-<h2>Index</h2>
-
-<p>Inventory Management Page</p>
+    }
+    
+    </table>

@@ -13,6 +13,12 @@ namespace InventoryManagement_BT.Controllers
     {
         private InventoryManagementRepository repo = new InventoryManagementRepository();
 
+        public ActionResult Index()
+        {
+            List<Asset> assets = repo.GetAssets();
+            return View(assets);
+        }
+
         // GET: TakeInventory
         [HttpGet]
         public ActionResult TakeInventory()

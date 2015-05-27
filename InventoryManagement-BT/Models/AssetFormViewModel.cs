@@ -47,6 +47,15 @@ namespace InventoryManagement_BT.Models
         [Display(Name = "Is Disposed")]
         public bool IsDisposed { get; set; }
 
+        public bool IsReadOnly
+        {
+            get
+            {
+                return (this.AssetTag == null);
+            }
+        }
+
+
 
         public List<Location> Locations { get; set; }
         public List<ClientSite> ClientSites { get; set; }
