@@ -384,7 +384,7 @@
     <Content Include="Views\Inventory\_searchResults.cshtml" />
     <Content Include="Views\Inventory\_addInventory.cshtml" />
     <Content Include="Views\Inventory\ViewInventory.cshtml" />
-    <Content Include="Views\Inventory\ViewInventorySearchResults.cshtml" />
+    <Content Include="Views\Inventory\_viewInventorySearchResults.cshtml" />
     <Content Include="Views\Inventory\_modifyAsset.cshtml" />
     <Content Include="Views\Inventory\Index.cshtml" />
   </ItemGroup>

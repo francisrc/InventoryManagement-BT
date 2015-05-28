@@ -2,7 +2,7 @@
 {
     public class SearchResultsViewModel
     {
-        public string AssetTag { get; set; }
+        public int AssetTag { get; set; }
         public string Product { get; set; }
         public string Manufacturer { get; set; }
         public string Model { get; set; }

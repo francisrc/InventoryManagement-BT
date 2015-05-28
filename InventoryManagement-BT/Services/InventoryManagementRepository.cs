@@ -53,7 +53,8 @@ namespace InventoryManagement_BT.Services
         public List<Asset> SearchAssets(SearchViewModel svm)
         {
             var properties = typeof(SearchableAsset).GetProperties().Where(prop => prop.PropertyType == svm.KeywordSearch.GetType());
-            List<Asset> wildcardMatches = db.Assets.AsEnumerable().Where(asset => properties.Any(prop => prop.GetValue(asset.ConvertToSearchable(), null).ToString().Contains(svm.KeywordSearch))).ToList();
+
+            List<Asset> wildcardMatches = db.Assets.AsEnumerable().Where(asset => properties.Any(prop => ((prop.GetValue(asset.ConvertToSearchable(), null) == null) ? "" : prop.GetValue(asset.ConvertToSearchable(), null).ToString()).Contains(svm.KeywordSearch))).ToList();
             return wildcardMatches;
         }
 

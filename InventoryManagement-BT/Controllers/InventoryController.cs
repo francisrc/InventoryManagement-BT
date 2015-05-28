@@ -54,7 +54,7 @@ namespace InventoryManagement_BT.Controllers
                 {
                     searchResults.Add(new SearchResultsViewModel()
                     {
-                        AssetTag = asset.AssetKey.ToString(),
+                        AssetTag = asset.AssetKey,
                         Product = asset.Product.Name,
                         Manufacturer = asset.Manufacturer.Name,
                         Model = asset.Model.Name,
@@ -62,7 +62,7 @@ namespace InventoryManagement_BT.Controllers
                         InventoryOwner = asset.InventoryOwner
                     });
                 }
-                return View("ViewInventorySearchResults", searchResults);
+                return PartialView("_viewInventorySearchResults", searchResults);
 
             }
             return View(svm);

@@ -1,50 +1,62 @@
 ﻿@model InventoryManagement_BT.Models.SearchViewModel
 
+@section scripts {
+    <script src="@Url.Content("~/Scripts/take-inventory.js")"></script>
+}
 
 <h2>View Inventory</h2>
-<div class="container">
-    <div class="col-lg-6">
-        @using (Html.BeginForm("SearchInventory", "Inventory"))
+<div class="row">
+    <div class="col-md-6">
+        @using (Ajax.BeginForm("SearchInventory", "Inventory", new AjaxOptions { InsertionMode = InsertionMode.Replace, OnSuccess = "HidePageDescription", UpdateTargetId = "search-results" }))
         {
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
 
-            <div class="row">
-                <div class="col-md-12">
-                    @Html.LabelFor(x => x.KeywordSearch):
-                    @Html.TextBoxFor(x => x.KeywordSearch)
+            <div class="col-md-12">
+                <div class="form-group">
+                    @Html.LabelFor(x => x.KeywordSearch, new { @class = "control-label" }):
+                    @Html.TextBoxFor(x => x.KeywordSearch, "", new { @class = "form-control" })
                 </div>
             </div>
-            <div class="row">
-                <div class="col-md-12">
-                    @Html.LabelFor(x => x.Item):
-                    @Html.TextBoxFor(x => x.Item)
+            <div class="col-md-12">
+                <div class="form-group">
+                    @Html.LabelFor(x => x.Item, new { @class = "control-label" }):
+                    @Html.TextBoxFor(x => x.Item, "", new { @class = "form-control" })
                 </div>
             </div>
-            <div class="row">
-                <div class="col-md-12">
+            <div class="col-md-12">
+                <div class="form-group">
                     @Html.LabelFor(x => x.SelectedLocationId):
-                    @Html.DropDownListFor(x => x.SelectedLocationId, Model.LocationItems)
+                    @Html.DropDownListFor(x => x.SelectedLocationId, Model.LocationItems, new { @class = "form-control" })
                 </div>
+
             </div>
-            <div class="row">
-                <div class="col-md-12">
+            <div class="col-md-12">
+                <div class="form-group">
                     @Html.LabelFor(x => x.SelectedClientSiteId):
-                    @Html.DropDownListFor(x => x.SelectedClientSiteId, Model.ClientSiteItems)
+                    @Html.DropDownListFor(x => x.SelectedClientSiteId, Model.ClientSiteItems, new { @class = "form-control" })
                 </div>
             </div>
-            <div class="row">
-                <div class="col-md-12">
-                    <input type="submit" name="submit-search" value="Submit" class="btn btn-primary pull-right" />
-                </div>
+            <div class="col-md-12">
+                <input type="submit" name="submit-search" value="Submit" class="btn btn-primary pull-right" />
             </div>
         }
     </div>
+
     <div class="col-md-6">
-        <p>
-            Enter search criteria to display a list of matching inventory items.
-        </p>
-        <p>
-            Keyword Search will return items containing the keyword in any field.
-        </p>
+        <div id="search-results">
+        </div>
+        <div id="page-description">
+            <p>
+                Enter search criteria to display a list of matching inventory items.
+            </p>
+            <p>
+                Keyword Search will return items containing the keyword in any field.
+            </p>
+        </div>
     </div>
+</div>
+
+<div id="add-inventory-container">
 
 </div>
+

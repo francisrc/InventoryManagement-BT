@@ -8,7 +8,7 @@ function ShowAddInventoryModal() {
     TriggerAddInventoryModal();
     $('.datepicker').datepicker({
         format: 'mm/dd/yyyy'
-    }); //Initialise any date pickers
+    }); 
     
 }
 
@@ -28,6 +28,10 @@ function HandleError(response) {
 
     $('#add-inventory-container').html(response.responseText);
     TriggerAddInventoryModal();
+}
+
+function HidePageDescription() {
+    $("#page-description").hide();
 }
 
 
