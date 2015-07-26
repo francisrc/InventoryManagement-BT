@@ -33,6 +33,28 @@ namespace InventoryManagement_BT.Controllers
             return View(ivvm);
         }
 
+        [HttpPost]
+        public ActionResult TakeInventory(InventoryFormViewModel model)
+        {
+
+            if (ModelState.IsValid)
+            {
+
+                Asset item = repo.FindBySearchQuery(model);
+
+                if (item != null && DateTime.Now.AddDays(-90) < item.InventoryDate)
+                {
+                    ModelState.AddModelError("InventoryDate", "Possible Duplicate Item");
+                }
+
+                ViewBag.ItemKey = model.ItemKey;
+                return PartialView("_searchResults", item);
+            }
+            model.Locations = repo.GetLocations();
+            model.ClientSites = repo.GetClientSites();
+            return View("TakeInventory", model);
+        }
+
         [HttpGet]
         public ActionResult ViewInventory()
         {
@@ -69,27 +91,7 @@ namespace InventoryManagement_BT.Controllers
         }
 
 
-        [HttpPost]
-        public ActionResult TakeInventory(InventoryFormViewModel model)
-        {
 
-            if (ModelState.IsValid)
-            {
-
-                Asset item = repo.FindBySearchQuery(model);
-                ViewBag.ItemKey = model.ItemKey;
-                if (item == null)
-                {
-                    return PartialView("_searchResults", null);
-                }
-                else
-                {
-                    return PartialView("_searchResults", item);
-                }
-            }
-
-            return RedirectToAction("TakeInventory");
-        }
 
         [HttpGet]
         public PartialViewResult EditAsset(int assetKey)
@@ -123,17 +125,20 @@ namespace InventoryManagement_BT.Controllers
 
 
 
+
         [HttpGet]
-        public PartialViewResult AddAsset()
+        public PartialViewResult AddAsset(string assetKey = "", string inventoryOwner = "")
         {
             AssetFormViewModel avm = new AssetFormViewModel();
 
+            avm.AssetTag = assetKey;
+            avm.InventoryOwner = inventoryOwner;
             avm.Manufacturers = repo.GetManufacturers();
             avm.Models = repo.GetModels();
             avm.Locations = repo.GetLocations();
             avm.ClientSites = repo.GetClientSites();
             avm.Products = repo.GetProducts();
-           
+
 
             return PartialView("_modifyAsset", avm);
         }
@@ -161,7 +166,8 @@ namespace InventoryManagement_BT.Controllers
                 };
                 repo.UpdateAsset(a);
             }
-            else {
+            else
+            {
                 Response.StatusCode = 422;
             }
 

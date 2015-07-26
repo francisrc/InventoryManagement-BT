@@ -7,7 +7,8 @@
 function ShowAddInventoryModal() {
     TriggerAddInventoryModal();
     $('.datepicker').datepicker({
-        format: 'mm/dd/yyyy'
+        format: 'mm/dd/yyyy',
+        startDate: '01/01/1900'
     }); 
     
 }

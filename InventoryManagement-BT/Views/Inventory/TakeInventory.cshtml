@@ -21,7 +21,7 @@
             <div class="form-group">
                 @Html.LabelFor(x => x.InventoryOwner, new { @class = "control-label" }):
                 @Html.TextBoxFor(x => x.InventoryOwner, new { @class = "form-control" })
-                @Html.ValidationMessageFor(x => x.InventoryOwner)
+                @Html.ValidationMessageFor(x => x.InventoryOwner, "", new { @class = "text-danger" })
             </div>
         </div>
         <div class="col-md-2 col-lg-2">

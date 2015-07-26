@@ -25,10 +25,16 @@ namespace InventoryManagement_BT
                       "~/Scripts/respond.js",
                       "~/Scripts/bootstrap-datepicker.js"));
 
+            bundles.Add(new ScriptBundle("~/bundles/sortable-table").Include(
+                    "~/Scripts/moment.js",
+                    "~/Scripts/bootstrap-sortable.js"));
+
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Content/bootstrap.css",
                       "~/Content/bootstrap-datepicker3.css",
+                      "~/Content/bootstrap-sortable.css",
                       "~/Content/site.css"));
+
 
         }
     }
