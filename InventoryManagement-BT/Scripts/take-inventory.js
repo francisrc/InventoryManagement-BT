@@ -1,10 +1,4 @@
-﻿$(document).ready(function () {
-
-
-
-})
-
-function ShowAddInventoryModal() {
+﻿function ShowAddInventoryModal() {
     TriggerAddInventoryModal();
     $('.datepicker').datepicker({
         format: 'mm/dd/yyyy',
