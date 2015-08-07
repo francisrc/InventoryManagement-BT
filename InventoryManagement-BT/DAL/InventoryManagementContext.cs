@@ -4,6 +4,7 @@ using System.Data.Entity;
 using System.Linq;
 using System.Web;
 using InventoryManagement_BT.Models;
+using InventoryManagement_BT.ViewModels;
 
 namespace InventoryManagement_BT.DAL
 {

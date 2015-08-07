@@ -1,5 +1,6 @@
 ﻿using InventoryManagement_BT.DAL;
 using InventoryManagement_BT.Models;
+using InventoryManagement_BT.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;

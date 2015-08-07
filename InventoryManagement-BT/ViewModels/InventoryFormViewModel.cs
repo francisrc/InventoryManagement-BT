@@ -1,11 +1,12 @@
-﻿using System;
+﻿using InventoryManagement_BT.Models;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 
-namespace InventoryManagement_BT.Models
+namespace InventoryManagement_BT.ViewModels
 {
     public class InventoryFormViewModel
     {

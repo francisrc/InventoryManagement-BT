@@ -1,4 +1,4 @@
-﻿namespace InventoryManagement_BT.Models
+﻿namespace InventoryManagement_BT.ViewModels
 {
     public class SearchResultsViewModel
     {

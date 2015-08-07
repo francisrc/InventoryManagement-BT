@@ -1,10 +1,8 @@
-﻿using InventoryManagement_BT.DAL;
-using InventoryManagement_BT.Models;
+﻿using InventoryManagement_BT.Models;
+using InventoryManagement_BT.ViewModels;
 using InventoryManagement_BT.Services;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 
 namespace InventoryManagement_BT.Controllers
