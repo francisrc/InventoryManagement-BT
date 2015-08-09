@@ -16,8 +16,7 @@ namespace InventoryManagement_BT.ViewModels
         public string KeywordSearch { get; set; }
 
         [Range(0, 999999)]
-        public int Item { get; set; }
-
+        public int? Item { get; set; }
 
         public List<Location> Locations { get; set; }
         public List<ClientSite> ClientSites { get; set; }

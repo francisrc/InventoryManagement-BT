@@ -23,6 +23,8 @@
     <NuGetPackageImportStamp>7327b613</NuGetPackageImportStamp>
     <ApplicationInsightsResourceId>/subscriptions/53d540be-861c-4f64-acc5-069466ed452f/resourcegroups/Default-ApplicationInsights-CentralUS/providers/microsoft.insights/components/InventoryManagement-BT</ApplicationInsightsResourceId>
     <UseGlobalApplicationHostFile />
+    <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\</SolutionDir>
+    <RestorePackages>true</RestorePackages>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -365,16 +367,18 @@
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Inventory\TakeInventory.cshtml" />
-    <Content Include="Views\Inventory\_searchResults.cshtml" />
-    <Content Include="Views\Inventory\_addInventory.cshtml" />
+    <Content Include="Views\Shared\_searchResults.cshtml" />
+    <Content Include="Views\Shared\_addInventory.cshtml" />
     <Content Include="Views\Inventory\ViewInventory.cshtml" />
-    <Content Include="Views\Inventory\_viewInventorySearchResults.cshtml" />
-    <Content Include="Views\Inventory\_modifyAsset.cshtml" />
+    <Content Include="Views\Shared\_viewInventorySearchResults.cshtml" />
+    <Content Include="Views\Shared\_modifyAsset.cshtml" />
     <Content Include="Views\Inventory\Index.cshtml" />
+    <Content Include="Views\Shared\_takeInventoryForm.cshtml" />
+    <Content Include="Views\Shared\_updateAssetForm.cshtml" />
+    <Content Include="Views\Shared\_searchInventoryForm.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Views\TakeInventory\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
@@ -425,6 +429,7 @@
   </Target>
   <Import Project="..\packages\Microsoft.Diagnostics.Instrumentation.Extensions.Intercept.0.13.0-build22724\build\Microsoft.Diagnostics.Instrumentation.Extensions.Intercept.targets" Condition="Exists('..\packages\Microsoft.Diagnostics.Instrumentation.Extensions.Intercept.0.13.0-build22724\build\Microsoft.Diagnostics.Instrumentation.Extensions.Intercept.targets')" />
   <Import Project="..\packages\Microsoft.Bcl.Build.1.0.21\build\Microsoft.Bcl.Build.targets" Condition="Exists('..\packages\Microsoft.Bcl.Build.1.0.21\build\Microsoft.Bcl.Build.targets')" />
+  <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it.
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">

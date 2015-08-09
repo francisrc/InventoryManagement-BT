@@ -1,7 +1,7 @@
-﻿@model List<InventoryManagement_BT.Models.SearchResultsViewModel>
+﻿@model List<InventoryManagement_BT.ViewModels.SearchResultsViewModel>
 
 
-@if(Model.Count == 0)
+@if (Model.Count == 0)
 {
     <p>No Search Results</p>
 }
@@ -15,19 +15,19 @@ else
                 <th>Manufacturer</th>
                 <th>Model</th>
                 <th>Location</th>
+
                 <th>Inventory Owner</th>
             </tr>
         </thead>
         <tbody>
             @foreach (var item in Model)
             {
-
                 <tr>
                     <td>
-                        @Ajax.ActionLink(item.AssetTag.ToString(), "EditAsset", new { assetKey = item.AssetTag }, new AjaxOptions { UpdateTargetId = "add-inventory-container", InsertionMode = InsertionMode.Replace, OnSuccess = "ShowAddInventoryModal" }, null)
+                        @Html.ActionLink(item.AssetTag.ToString(), "EditAsset", new { assetKey = item.AssetTag }, new { @class = "edit-asset-link" })
                     </td>
                     <td>@item.Product</td>
-                    <td> @item.Manufacturer </td>
+                    <td>@item.Manufacturer </td>
                     <td>@item.Model</td>
                     <td>@item.Location</td>
                     <td>@item.InventoryOwner</td>

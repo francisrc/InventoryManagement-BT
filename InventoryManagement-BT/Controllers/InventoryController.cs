@@ -32,7 +32,7 @@ namespace InventoryManagement_BT.Controllers
         }
 
         [HttpPost]
-        public ActionResult TakeInventory(InventoryFormViewModel model)
+        public PartialViewResult TakeInventory(InventoryFormViewModel model)
         {
 
             if (ModelState.IsValid)
@@ -46,11 +46,13 @@ namespace InventoryManagement_BT.Controllers
                 }
 
                 ViewBag.ItemKey = model.ItemKey;
+                ViewBag.InventoryOwner = model.InventoryOwner;
                 return PartialView("_searchResults", item);
             }
+            Response.StatusCode = 404;
             model.Locations = repo.GetLocations();
             model.ClientSites = repo.GetClientSites();
-            return View("TakeInventory", model);
+            return PartialView("_takeInventoryForm", model);
         }
 
         [HttpGet]
@@ -64,32 +66,39 @@ namespace InventoryManagement_BT.Controllers
         }
 
         [HttpPost]
-        public ActionResult SearchInventory(SearchViewModel svm)
+        public PartialViewResult SearchInventory(SearchViewModel svm)
         {
-            if (ModelState.IsValid)
+
+            if (!ModelState.IsValid)
             {
-                List<Asset> assets = repo.SearchAssets(svm);
-                List<SearchResultsViewModel> searchResults = new List<SearchResultsViewModel>();
-                foreach (var asset in assets)
+                svm.Locations = repo.GetLocations();
+                svm.ClientSites = repo.GetClientSites();
+
+                Response.StatusCode = 404;
+                return PartialView("_searchInventoryForm", svm);
+            }
+            else
+            {
+                var searchResults = new List<SearchResultsViewModel>();
+                if (svm.KeywordSearch != null)
                 {
-                    searchResults.Add(new SearchResultsViewModel()
+                    List<Asset> assets = repo.SearchAssets(svm);
+                    foreach (var asset in assets)
                     {
-                        AssetTag = asset.AssetKey,
-                        Product = asset.Product.Name,
-                        Manufacturer = asset.Manufacturer.Name,
-                        Model = asset.Model.Name,
-                        Location = asset.Location.Name,
-                        InventoryOwner = asset.InventoryOwner
-                    });
+                        searchResults.Add(new SearchResultsViewModel()
+                        {
+                            AssetTag = asset.AssetKey,
+                            Product = asset.Product.Name,
+                            Manufacturer = asset.Manufacturer.Name,
+                            Model = asset.Model.Name,
+                            Location = asset.Location.Name,
+                            InventoryOwner = asset.InventoryOwner
+                        });
+                    }
                 }
                 return PartialView("_viewInventorySearchResults", searchResults);
-
             }
-            return View(svm);
         }
-
-
-
 
         [HttpGet]
         public PartialViewResult EditAsset(int assetKey)
@@ -121,9 +130,6 @@ namespace InventoryManagement_BT.Controllers
             return PartialView("_modifyAsset", afvm);
         }
 
-
-
-
         [HttpGet]
         public PartialViewResult AddAsset(string assetKey = "", string inventoryOwner = "")
         {
@@ -144,6 +150,12 @@ namespace InventoryManagement_BT.Controllers
         [HttpPost]
         public ActionResult UpdateAsset(AssetFormViewModel avm)
         {
+            avm.Manufacturers = repo.GetManufacturers();
+            avm.Models = repo.GetModels();
+            avm.Locations = repo.GetLocations();
+            avm.ClientSites = repo.GetClientSites();
+            avm.Products = repo.GetProducts();
+
             if (ModelState.IsValid)
             {
                 Response.StatusCode = 200;
@@ -167,14 +179,8 @@ namespace InventoryManagement_BT.Controllers
             else
             {
                 Response.StatusCode = 422;
+                return PartialView("_updateAssetForm", avm);
             }
-
-            avm.Manufacturers = repo.GetManufacturers();
-            avm.Models = repo.GetModels();
-            avm.Locations = repo.GetLocations();
-            avm.ClientSites = repo.GetClientSites();
-            avm.Products = repo.GetProducts();
-
             return PartialView("_modifyAsset", avm);
         }
 

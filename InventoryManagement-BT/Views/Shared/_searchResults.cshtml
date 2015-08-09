@@ -5,7 +5,7 @@
     <div class="row">
         <div class="col-md-12">
             <span class="error-text"> Item @ViewBag.ItemKey Not Found</span>
-            @Ajax.ActionLink("Add Item?", "AddAsset", "Inventory", new  {assetKey = ViewBag.ItemKey, inventoryOwner = ViewBag.InventoryOwner }, new AjaxOptions { UpdateTargetId = "add-inventory-container", InsertionMode = InsertionMode.Replace, OnSuccess = "ShowAddInventoryModal" }, new { @class = "btn btn-primary" })
+            @Html.ActionLink("Add Item?", "AddAsset", "Inventory", new  { assetKey = ViewBag.ItemKey, inventoryOwner = ViewBag.InventoryOwner}, new { @class = "add-asset-link btn btn-primary" })
             @Html.ActionLink("Cancel", "TakeInventory", "Inventory", null, new { @class = "btn btn-danger" })
         </div>
     </div>
