@@ -1,7 +1,7 @@
 ﻿@model InventoryManagement_BT.ViewModels.SearchViewModel
 
 
-@using (Html.BeginForm("SearchInventory", "Inventory", FormMethod.Post, new { @class = "search-inventory-form form-inline" }))
+@using (Html.BeginForm("SearchInventory", "Asset", FormMethod.Post, new { @class = "search-inventory-form form-inline" }))
 {
     @Html.ValidationSummary(true, "", new { @class = "text-danger" })
 

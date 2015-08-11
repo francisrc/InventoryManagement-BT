@@ -14,7 +14,7 @@
                 <h4 class="modal-title" id="myModalLabel">Add Inventory</h4>
             </div>
             <div class="modal-body">
-                @using (Html.BeginForm("AddAsset", "Inventory", FormMethod.Post, new { @class = "add-asset-form form-inline" }))
+                @using (Html.BeginForm("AddAsset", "Asset", FormMethod.Post, new { @class = "add-asset-form form-inline" }))
                 {
                     @Html.AntiForgeryToken()
 

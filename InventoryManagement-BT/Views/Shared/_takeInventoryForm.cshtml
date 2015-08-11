@@ -1,6 +1,6 @@
 ﻿@model InventoryManagement_BT.ViewModels.InventoryFormViewModel
 
-@using (Html.BeginForm("TakeInventory", "Inventory", FormMethod.Post, new { @class = "take-inventory-form form-inline" }))
+@using (Html.BeginForm("TakeInventory", "Asset", FormMethod.Post, new { @class = "take-inventory-form form-inline" }))
 {
 
     @Html.ValidationSummary(true, "", new { @class = "text-danger" })

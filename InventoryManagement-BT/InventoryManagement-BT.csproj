@@ -210,7 +210,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\HomeController.cs" />
-    <Compile Include="Controllers\InventoryController.cs" />
+    <Compile Include="Controllers\AssetController.cs" />
     <Compile Include="DAL\InventoryManagementContext.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -366,13 +366,13 @@
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
-    <Content Include="Views\Inventory\TakeInventory.cshtml" />
+    <Content Include="Views\Asset\TakeInventory.cshtml" />
     <Content Include="Views\Shared\_searchResults.cshtml" />
     <Content Include="Views\Shared\_addInventory.cshtml" />
-    <Content Include="Views\Inventory\ViewInventory.cshtml" />
+    <Content Include="Views\Asset\ViewInventory.cshtml" />
     <Content Include="Views\Shared\_viewInventorySearchResults.cshtml" />
     <Content Include="Views\Shared\_modifyAsset.cshtml" />
-    <Content Include="Views\Inventory\Index.cshtml" />
+    <Content Include="Views\Asset\Index.cshtml" />
     <Content Include="Views\Shared\_takeInventoryForm.cshtml" />
     <Content Include="Views\Shared\_updateAssetForm.cshtml" />
     <Content Include="Views\Shared\_searchInventoryForm.cshtml" />

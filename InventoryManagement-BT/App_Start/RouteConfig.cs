@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.Mvc;
+﻿using System.Web.Mvc;
 using System.Web.Routing;
 
 namespace InventoryManagement_BT
@@ -15,8 +11,8 @@ namespace InventoryManagement_BT
 
             routes.MapRoute(
                 name: "Take Inventory",
-                url: "inventorymanagement/TakeInventory",
-                defaults: new { controller = "Inventory", action = "TakeInventory" });
+                url: "inventory/",
+                defaults: new { controller = "Asset", action = "TakeInventory" });
 
             routes.MapRoute(
                 name: "Default",

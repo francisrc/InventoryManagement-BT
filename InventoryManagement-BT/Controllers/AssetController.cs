@@ -7,7 +7,7 @@ using System.Web.Mvc;
 
 namespace InventoryManagement_BT.Controllers
 {
-    public class InventoryController : Controller
+    public class AssetController : Controller
     {
         private InventoryManagementRepository repo = new InventoryManagementRepository();
 
