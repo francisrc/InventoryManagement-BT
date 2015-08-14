@@ -7,7 +7,7 @@
 }
 else
 {
-    <table class="table">
+    <table class="table sortable">
         <thead>
             <tr>
                 <th>Asset Tag</th>
@@ -15,7 +15,6 @@ else
                 <th>Manufacturer</th>
                 <th>Model</th>
                 <th>Location</th>
-
                 <th>Inventory Owner</th>
             </tr>
         </thead>
@@ -37,6 +36,11 @@ else
     </table>
 }
 
+<script>
+    $(function () {
+        $.bootstrapSortable(true);
+    });
+</script>
 
 
 
