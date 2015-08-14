@@ -104,8 +104,6 @@ function ShowAddInventoryModal() {
         format: 'mm/dd/yyyy',
         startDate: '01/01/1900'
     });
-
-    
 }
 
 function HideTakeInventoryDescription() {

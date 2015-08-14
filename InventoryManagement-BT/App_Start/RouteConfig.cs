@@ -9,6 +9,8 @@ namespace InventoryManagement_BT
         {
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
 
+            routes.MapMvcAttributeRoutes();
+
             routes.MapRoute(
                 name: "Take Inventory",
                 url: "inventory/",

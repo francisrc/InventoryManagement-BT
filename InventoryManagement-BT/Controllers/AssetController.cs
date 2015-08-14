@@ -47,6 +47,8 @@ namespace InventoryManagement_BT.Controllers
 
                 ViewBag.ItemKey = model.ItemKey;
                 ViewBag.InventoryOwner = model.InventoryOwner;
+                ViewBag.InventoriedBy = "Robert Newton"; //Default used since we don't have AD connected
+
                 return PartialView("_searchResults", item);
             }
             Response.StatusCode = 404;
@@ -127,6 +129,8 @@ namespace InventoryManagement_BT.Controllers
             afvm.ClientSites = repo.GetClientSites();
             afvm.Products = repo.GetProducts();
 
+            ViewBag.ModalName = "Edit";
+
             return PartialView("_modifyAsset", afvm);
         }
 
@@ -142,6 +146,8 @@ namespace InventoryManagement_BT.Controllers
             avm.Locations = repo.GetLocations();
             avm.ClientSites = repo.GetClientSites();
             avm.Products = repo.GetProducts();
+
+            ViewBag.ModalName = "Add";
 
 
             return PartialView("_modifyAsset", avm);
@@ -184,6 +190,18 @@ namespace InventoryManagement_BT.Controllers
             return PartialView("_modifyAsset", avm);
         }
 
+        [HttpGet]
+        [Route("submit")]
+        public ActionResult UpdateOwnerAndDate(string assetKey = "", string date = "", string inventoriedBy = "")
+        {
+            var asset = repo.FindAssetByKey(int.Parse(assetKey));
+            asset.InventoryDate = DateTime.Parse(date);
+            asset.InventoriedBy = inventoriedBy;
+
+            repo.UpdateAsset(asset);
+
+            return RedirectToAction("TakeInventory");
+        }
 
     }
 }

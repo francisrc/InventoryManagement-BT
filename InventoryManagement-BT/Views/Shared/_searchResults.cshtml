@@ -62,7 +62,7 @@ else
     </table>
     <p>Last Inventory Date: @Model.InventoryDate.ToString("MM/dd/yyyy")</p>
 
-    @Html.ActionLink("Submit", "TakeInventory", "Asset", null, new { @class = "btn btn-primary" })
+    @Html.ActionLink("Submit", "submit", "Asset", new {assetKey = Model.AssetKey.ToString(), date = DateTime.UtcNow.ToString(), inventoriedBy = ViewBag.InventoriedBy }, new { @class = "btn btn-primary" })
     @Ajax.ActionLink("Modify", "EditAsset", new { assetKey = Model.AssetKey }, new AjaxOptions { UpdateTargetId = "add-inventory-container", InsertionMode = InsertionMode.Replace, OnSuccess = "ShowAddInventoryModal" }, new {@class = "btn btn-info" } )
     @Html.ActionLink("Cancel", "TakeInventory", "Asset", null, new { @class = "btn btn-danger" })
 }

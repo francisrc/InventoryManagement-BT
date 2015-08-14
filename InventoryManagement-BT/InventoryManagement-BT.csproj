@@ -368,7 +368,6 @@
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Asset\TakeInventory.cshtml" />
     <Content Include="Views\Shared\_searchResults.cshtml" />
-    <Content Include="Views\Shared\_addInventory.cshtml" />
     <Content Include="Views\Asset\ViewInventory.cshtml" />
     <Content Include="Views\Shared\_viewInventorySearchResults.cshtml" />
     <Content Include="Views\Shared\_modifyAsset.cshtml" />
