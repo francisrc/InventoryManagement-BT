@@ -1,16 +1,12 @@
 ﻿using InventoryManagement_BT.Models;
-using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 
 namespace InventoryManagement_BT.ViewModels
 {
     public class InventoryFormViewModel
     {
-        public InventoryFormViewModel() { }
 
         [Display(Name = "Item")]
         [Range(1, 999999)]
@@ -37,19 +33,11 @@ namespace InventoryManagement_BT.ViewModels
         [Display(Name = "Location")]
         public int SelectedLocationId { get; set; }
 
-        public IEnumerable<SelectListItem> LocationItems
-        {
-            get { return new SelectList(Locations, "Id", "Name"); }
-        }
+        public IEnumerable<SelectListItem> LocationItems => new SelectList(Locations, "Id", "Name");
 
         [Display(Name = "Client Site")]
         public int SelectedClientSiteId { get; set; }
 
-        public IEnumerable<SelectListItem> ClientSiteItems
-        {
-            get { return new SelectList(ClientSites, "Id", "Name"); }
-        }
-
-
+        public IEnumerable<SelectListItem> ClientSiteItems => new SelectList(ClientSites, "Id", "Name");
     }
 }

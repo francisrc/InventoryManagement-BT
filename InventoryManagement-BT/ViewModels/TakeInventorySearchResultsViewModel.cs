@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-
-namespace InventoryManagement_BT.ViewModels
+﻿namespace InventoryManagement_BT.ViewModels
 {
     public class TakeInventorySearchResultsViewModel
     {

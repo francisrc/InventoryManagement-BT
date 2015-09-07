@@ -48,14 +48,7 @@ namespace InventoryManagement_BT.ViewModels
         [Display(Name = "Is Disposed")]
         public bool IsDisposed { get; set; }
 
-        public bool IsReadOnly
-        {
-            get
-            {
-                return (this.AssetTag == null);
-            }
-        }
-
+        public bool IsReadOnly => (AssetTag == null);
 
 
         public List<Location> Locations { get; set; }
@@ -67,43 +60,22 @@ namespace InventoryManagement_BT.ViewModels
 
         [Display(Name = "Location")]
         public int SelectedLocationId { get; set; }
-
-        public IEnumerable<SelectListItem> LocationItems
-        {
-            get { return new SelectList(Locations, "Id", "Name"); }
-        }
+        public IEnumerable<SelectListItem> LocationItems => new SelectList(Locations, "Id", "Name");
 
         [Display(Name = "Client Site")]
         public int SelectedClientSiteId { get; set; }
-
-        public IEnumerable<SelectListItem> ClientSiteItems
-        {
-            get { return new SelectList(ClientSites, "Id", "Name"); }
-        }
+        public IEnumerable<SelectListItem> ClientSiteItems => new SelectList(ClientSites, "Id", "Name");
 
         [Display(Name = "Product")]
         public int SelectedProductId { get; set; }
-
-        public IEnumerable<SelectListItem> ProductItems
-        {
-            get { return new SelectList(Products, "Id", "Name"); }
-        }
+        public IEnumerable<SelectListItem> ProductItems => new SelectList(Products, "Id", "Name");
 
         [Display(Name = "Manufacturer")]
         public int SelectedManufacturerId { get; set; }
-
-        public IEnumerable<SelectListItem> ManufacturerItems
-        {
-            get { return new SelectList(Manufacturers, "Id", "Name"); }
-        }
+        public IEnumerable<SelectListItem> ManufacturerItems => new SelectList(Manufacturers, "Id", "Name");
 
         [Display(Name = "Model")]
         public int SelectedModelId { get; set; }
-
-        public IEnumerable<SelectListItem> ModelItems
-        {
-            get { return new SelectList(Models, "Id", "Name"); }
-        }
-
+        public IEnumerable<SelectListItem> ModelItems => new SelectList(Models, "Id", "Name");
     }
 }

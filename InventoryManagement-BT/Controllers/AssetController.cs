@@ -3,30 +3,34 @@ using InventoryManagement_BT.ViewModels;
 using InventoryManagement_BT.Services;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Web.Mvc;
 
 namespace InventoryManagement_BT.Controllers
 {
     public class AssetController : Controller
     {
-        private InventoryManagementRepository repo = new InventoryManagementRepository();
+        private readonly InventoryManagementRepository repo = new InventoryManagementRepository();
 
-        public ActionResult Index()
+        public ViewResult Index()
         {
-            List<Asset> assets = repo.GetAssets();
+            var assets = repo.GetAssets();
             return View(assets);
         }
 
         // GET: TakeInventory
         [HttpGet]
-        public ActionResult TakeInventory()
+        public ViewResult TakeInventory()
         {
-            InventoryFormViewModel ivvm = new InventoryFormViewModel();
-            ivvm.Locations = repo.GetLocations();
-            ivvm.ClientSites = repo.GetClientSites();
+            var ivvm = new InventoryFormViewModel
+            {
+                Locations = repo.GetLocations(),
+                ClientSites = repo.GetClientSites(),
+                InventoryDate = DateTime.Now.ToString("MM/dd/yyyy"),
+                InventoriedBy = "Robert Newton"
+            };
 
-            ivvm.InventoryDate = DateTime.Now.ToString("MM/dd/yyyy");
-            ivvm.InventoriedBy = "Robert Newton"; //Default used since we don't have AD connected
+            //Default used since we don't have AD connected
 
             return View(ivvm);
         }
@@ -38,7 +42,7 @@ namespace InventoryManagement_BT.Controllers
             if (ModelState.IsValid)
             {
 
-                Asset item = repo.FindBySearchQuery(model);
+                var item = repo.FindBySearchQuery(model);
 
                 if (item != null && DateTime.Now.AddDays(-90) < item.InventoryDate)
                 {
@@ -58,11 +62,13 @@ namespace InventoryManagement_BT.Controllers
         }
 
         [HttpGet]
-        public ActionResult ViewInventory()
+        public ViewResult ViewInventory()
         {
-            SearchViewModel svm = new SearchViewModel();
-            svm.Locations = repo.GetLocations();
-            svm.ClientSites = repo.GetClientSites();
+            var svm = new SearchViewModel
+            {
+                Locations = repo.GetLocations(),
+                ClientSites = repo.GetClientSites()
+            };
 
             return View(svm);
         }
@@ -84,19 +90,11 @@ namespace InventoryManagement_BT.Controllers
                 var searchResults = new List<SearchResultsViewModel>();
                 if (svm.KeywordSearch != null)
                 {
-                    List<Asset> assets = repo.SearchAssets(svm);
-                    foreach (var asset in assets)
+                    var assets = repo.SearchAssets(svm);
+                    searchResults.AddRange(assets.Select(asset => new SearchResultsViewModel()
                     {
-                        searchResults.Add(new SearchResultsViewModel()
-                        {
-                            AssetTag = asset.AssetKey,
-                            Product = asset.Product.Name,
-                            Manufacturer = asset.Manufacturer.Name,
-                            Model = asset.Model.Name,
-                            Location = asset.Location.Name,
-                            InventoryOwner = asset.InventoryOwner
-                        });
-                    }
+                        AssetTag = asset.AssetKey, Product = asset.Product.Name, Manufacturer = asset.Manufacturer.Name, Model = asset.Model.Name, Location = asset.Location.Name, InventoryOwner = asset.InventoryOwner
+                    }));
                 }
                 return PartialView("_viewInventorySearchResults", searchResults);
             }
@@ -105,8 +103,8 @@ namespace InventoryManagement_BT.Controllers
         [HttpGet]
         public PartialViewResult EditAsset(int assetKey)
         {
-            Asset a = repo.FindAssetByKey(assetKey);
-            AssetFormViewModel afvm = new AssetFormViewModel
+            var a= repo.FindAssetByKey(assetKey);
+            var afvm = new AssetFormViewModel
             {
                 AssetTag = a.AssetKey.ToString(),
                 ItemName = a.ItemName,
@@ -120,14 +118,14 @@ namespace InventoryManagement_BT.Controllers
                 SelectedModelId = a.Model.Id,
                 SelectedProductId = a.Product.Id,
                 SelectedClientSiteId = a.ClientSite.Id,
-                SelectedLocationId = a.Location.Id
+                SelectedLocationId = a.Location.Id,
+                Manufacturers = repo.GetManufacturers(),
+                Models = repo.GetModels(),
+                Locations = repo.GetLocations(),
+                ClientSites = repo.GetClientSites(),
+                Products = repo.GetProducts()
             };
 
-            afvm.Manufacturers = repo.GetManufacturers();
-            afvm.Models = repo.GetModels();
-            afvm.Locations = repo.GetLocations();
-            afvm.ClientSites = repo.GetClientSites();
-            afvm.Products = repo.GetProducts();
 
             ViewBag.ModalName = "Edit";
 
@@ -137,15 +135,17 @@ namespace InventoryManagement_BT.Controllers
         [HttpGet]
         public PartialViewResult AddAsset(string assetKey = "", string inventoryOwner = "")
         {
-            AssetFormViewModel avm = new AssetFormViewModel();
+            var avm = new AssetFormViewModel
+            {
+                AssetTag = assetKey,
+                InventoryOwner = inventoryOwner,
+                Manufacturers = repo.GetManufacturers(),
+                Models = repo.GetModels(),
+                Locations = repo.GetLocations(),
+                ClientSites = repo.GetClientSites(),
+                Products = repo.GetProducts()
+            };
 
-            avm.AssetTag = assetKey;
-            avm.InventoryOwner = inventoryOwner;
-            avm.Manufacturers = repo.GetManufacturers();
-            avm.Models = repo.GetModels();
-            avm.Locations = repo.GetLocations();
-            avm.ClientSites = repo.GetClientSites();
-            avm.Products = repo.GetProducts();
 
             ViewBag.ModalName = "Add";
 
@@ -165,7 +165,7 @@ namespace InventoryManagement_BT.Controllers
             if (ModelState.IsValid)
             {
                 Response.StatusCode = 200;
-                Asset a = new Asset
+                var a = new Asset
                 {
                     Product = repo.GetProductById(avm.SelectedProductId),
                     Manufacturer = repo.GetManufacturerById(avm.SelectedManufacturerId),
@@ -181,13 +181,11 @@ namespace InventoryManagement_BT.Controllers
                     IsDisposed = avm.IsDisposed
                 };
                 repo.UpdateAsset(a);
+                return PartialView("_modifyAsset", avm);
             }
-            else
-            {
-                Response.StatusCode = 422;
-                return PartialView("_updateAssetForm", avm);
-            }
-            return PartialView("_modifyAsset", avm);
+
+            Response.StatusCode = 422;
+            return PartialView("_updateAssetForm", avm);
         }
 
         [HttpGet]

@@ -1,8 +1,8 @@
 ﻿$(document).ready(function () {
-    $('.take-inventory-form').on('submit', function (e) {
+    $(".take-inventory-form").on("submit", function (e) {
         e.preventDefault();
         $.ajax({
-            url: $(this).attr('action'),
+            url: $(this).attr("action"),
             type: "POST",
             data: $(this).serialize(),
             success: function (data) {
@@ -15,10 +15,10 @@
         });
     });
 
-    $('.search-inventory-form').on('submit', function (e) {
+    $(".search-inventory-form").on("submit", function (e) {
         e.preventDefault();
         $.ajax({
-            url: $(this).attr('action'),
+            url: $(this).attr("action"),
             type: "POST",
             data: $(this).serialize(),
             success: function (data) {
@@ -30,10 +30,10 @@
         });
     });
 
-    $('.add-asset-form').on('submit', function (e) {
+    $(".add-asset-form").on("submit", function (e) {
         e.preventDefault();
         $.ajax({
-            url: $(this).attr('action'),
+            url: $(this).attr("action"),
             type: "POST",
             data: $(this).serialize(),
             success: function (data) {
@@ -45,10 +45,10 @@
         });
     });
 
-    $('#search-results').on('click', '.edit-asset-link', function (e) {
+    $("#search-results").on("click", ".edit-asset-link", function (e) {
         e.preventDefault();
         $.ajax({
-            url: $(this).attr('href'),
+            url: $(this).attr("href"),
             type: "GET",
             success: function (data) {
                 $("#add-inventory-container").html(data);
@@ -60,17 +60,17 @@
         });
     });
 
-    $('#search-results').on('click', '.add-asset-link', function (e) {
+    $("#search-results").on("click", ".add-asset-link", function (e) {
         e.preventDefault();
         $.ajax({
-            url: $(this).attr('href'),
+            url: $(this).attr("href"),
             type: "GET",
             success: function (data) {
                 $("#add-inventory-container").html(data);
                 ShowAddInventoryModal();
-                assetTag = $("#AssetTag");
-                val = assetTag.data("disabled");
-                if (val == "False")
+                var assetTag = $("#AssetTag");
+                var val = assetTag.data("disabled");
+                if (val === "False")
                     assetTag.attr("readonly", "readonly");
             },
             error: function (xhr) {
@@ -79,10 +79,10 @@
         });
     });
 
-    $('#add-inventory-container').on('submit', '.update-asset-form', function (e) {
+    $("#add-inventory-container").on("submit", ".update-asset-form", function (e) {
         e.preventDefault();
         $.ajax({
-            url: $(this).attr('action'),
+            url: $(this).attr("action"),
             type: "POST",
             data: $(this).serialize(),
             success: function (data) {
@@ -100,9 +100,9 @@
 
 function ShowAddInventoryModal() {
     TriggerAddInventoryModal();
-    $('.datepicker').datepicker({
-        format: 'mm/dd/yyyy',
-        startDate: '01/01/1900'
+    $(".datepicker").datepicker({
+        format: "mm/dd/yyyy",
+        startDate: "01/01/1900"
     });
 }
 
@@ -120,7 +120,7 @@ function CloseModal() {
 
 function HandleError(response) {
 
-    $('#add-inventory-container').html(response.responseText);
+    $("#add-inventory-container").html(response.responseText);
     TriggerAddInventoryModal();
 }
 

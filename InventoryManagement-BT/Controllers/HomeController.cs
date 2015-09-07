@@ -8,7 +8,7 @@ namespace InventoryManagement_BT.Controllers
 {
     public class HomeController : Controller
     {
-        public ActionResult Index()
+        public ViewResult Index()
         {
             return View();
         }

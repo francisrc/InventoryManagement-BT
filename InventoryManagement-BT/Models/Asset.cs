@@ -4,8 +4,6 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace InventoryManagement_BT.Models
 {
-
-
     public class Asset
     {
         public Asset() {
@@ -57,16 +55,16 @@ namespace InventoryManagement_BT.Models
         {
             return new SearchableAsset
             {
-                AssetKey = this.AssetKey,
-                SerialNumber = this.SerialNumber,
-                ItemName = this.ItemName,
-                InventoryOwner = this.InventoryOwner,
-                InventoriedBy = this.InventoriedBy,
-                Product = this.Product.Name,
-                Manufacturer = this.Manufacturer.Name,
-                Model = this.Model.Name,
-                Location = this.Location.Name,
-                ClientSite = this.ClientSite.Name
+                AssetKey = AssetKey,
+                SerialNumber = SerialNumber,
+                ItemName = ItemName,
+                InventoryOwner = InventoryOwner,
+                InventoriedBy = InventoriedBy,
+                Product = Product.Name,
+                Manufacturer = Manufacturer.Name,
+                Model = Model.Name,
+                Location = Location.Name,
+                ClientSite = ClientSite.Name
             };
         }
 
@@ -76,18 +74,18 @@ namespace InventoryManagement_BT.Models
         /// <param name="newAsset"></param>
         public void UpdateProperties(Asset newAsset)
         {
-            this.SerialNumber = newAsset.SerialNumber;
-            this.PurchaseDate = newAsset.PurchaseDate;
-            this.ItemName = newAsset.ItemName;
-            this.ClientSite = newAsset.ClientSite;
-            this.Product = newAsset.Product;
-            this.Model = newAsset.Model;
-            this.Manufacturer = newAsset.Manufacturer;
-            this.PurchaseDate = newAsset.PurchaseDate;
-            this.InventoriedBy = newAsset.InventoriedBy;
-            this.InventoryDate = newAsset.InventoryDate;
-            this.IsDisposed = newAsset.IsDisposed;
-            this.Location = newAsset.Location;
+            SerialNumber = newAsset.SerialNumber;
+            PurchaseDate = newAsset.PurchaseDate;
+            ItemName = newAsset.ItemName;
+            ClientSite = newAsset.ClientSite;
+            Product = newAsset.Product;
+            Model = newAsset.Model;
+            Manufacturer = newAsset.Manufacturer;
+            PurchaseDate = newAsset.PurchaseDate;
+            InventoriedBy = newAsset.InventoriedBy;
+            InventoryDate = newAsset.InventoryDate;
+            IsDisposed = newAsset.IsDisposed;
+            Location = newAsset.Location;
         }
     }
 
