@@ -34,7 +34,7 @@ namespace InventoryManagement_BT.Services
             return key == null ? null : _db.Assets.DefaultIfEmpty().SingleOrDefault(a => a.AssetKey == key);
         }
 
-        public List<Asset> GetAssets()
+        public List<Asset> GetAllAssets()
         {
             return _db.Assets.ToList();
         }
@@ -58,7 +58,7 @@ namespace InventoryManagement_BT.Services
 
             var properties = typeof(SearchableAsset).GetProperties().Where(prop => prop.PropertyType == svm.KeywordSearch.GetType());
 
-            var wildcardMatches = _db.Assets.AsEnumerable().Where(asset => properties.Any(prop => ((prop.GetValue(asset.ConvertToSearchable(), null) == null) ? "" : prop.GetValue(asset.ConvertToSearchable(), null).ToString()).Contains(svm.KeywordSearch))).ToList();
+            var wildcardMatches = _db.Assets.AsEnumerable().Where(asset => properties.Any(prop => ((prop.GetValue(asset.ConvertToSearchable(), null) == null) ? "" : prop.GetValue(asset.ConvertToSearchable(), null).ToString().ToLower()).Contains(svm.KeywordSearch.ToLower()))).ToList();
             return wildcardMatches;
         }
 

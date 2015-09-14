@@ -10,11 +10,11 @@ namespace InventoryManagement_BT.Controllers
 {
     public class AssetController : Controller
     {
-        private readonly InventoryManagementRepository repo = new InventoryManagementRepository();
+        private readonly InventoryManagementRepository _repo = new InventoryManagementRepository();
 
         public ViewResult Index()
         {
-            var assets = repo.GetAssets();
+            var assets = _repo.GetAllAssets();
             return View(assets);
         }
 
@@ -24,8 +24,8 @@ namespace InventoryManagement_BT.Controllers
         {
             var ivvm = new InventoryFormViewModel
             {
-                Locations = repo.GetLocations(),
-                ClientSites = repo.GetClientSites(),
+                Locations = _repo.GetLocations(),
+                ClientSites = _repo.GetClientSites(),
                 InventoryDate = DateTime.Now.ToString("MM/dd/yyyy"),
                 InventoriedBy = "Robert Newton"
             };
@@ -41,8 +41,7 @@ namespace InventoryManagement_BT.Controllers
 
             if (ModelState.IsValid)
             {
-
-                var item = repo.FindBySearchQuery(model);
+                var item = _repo.FindBySearchQuery(model);
 
                 if (item != null && DateTime.Now.AddDays(-90) < item.InventoryDate)
                 {
@@ -55,9 +54,10 @@ namespace InventoryManagement_BT.Controllers
 
                 return PartialView("_searchResults", item);
             }
+
             Response.StatusCode = 404;
-            model.Locations = repo.GetLocations();
-            model.ClientSites = repo.GetClientSites();
+            model.Locations = _repo.GetLocations();
+            model.ClientSites = _repo.GetClientSites();
             return PartialView("_takeInventoryForm", model);
         }
 
@@ -66,8 +66,8 @@ namespace InventoryManagement_BT.Controllers
         {
             var svm = new SearchViewModel
             {
-                Locations = repo.GetLocations(),
-                ClientSites = repo.GetClientSites()
+                Locations = _repo.GetLocations(),
+                ClientSites = _repo.GetClientSites()
             };
 
             return View(svm);
@@ -79,31 +79,29 @@ namespace InventoryManagement_BT.Controllers
 
             if (!ModelState.IsValid)
             {
-                svm.Locations = repo.GetLocations();
-                svm.ClientSites = repo.GetClientSites();
+                svm.Locations = _repo.GetLocations();
+                svm.ClientSites = _repo.GetClientSites();
 
                 Response.StatusCode = 404;
                 return PartialView("_searchInventoryForm", svm);
             }
-            else
+
+            var searchResults = new List<SearchResultsViewModel>();
+            if (svm.KeywordSearch != null)
             {
-                var searchResults = new List<SearchResultsViewModel>();
-                if (svm.KeywordSearch != null)
+                var assets = _repo.SearchAssets(svm);
+                searchResults.AddRange(assets.Select(asset => new SearchResultsViewModel()
                 {
-                    var assets = repo.SearchAssets(svm);
-                    searchResults.AddRange(assets.Select(asset => new SearchResultsViewModel()
-                    {
-                        AssetTag = asset.AssetKey, Product = asset.Product.Name, Manufacturer = asset.Manufacturer.Name, Model = asset.Model.Name, Location = asset.Location.Name, InventoryOwner = asset.InventoryOwner
-                    }));
-                }
-                return PartialView("_viewInventorySearchResults", searchResults);
+                    AssetTag = asset.AssetKey, Product = asset.Product.Name, Manufacturer = asset.Manufacturer.Name, Model = asset.Model.Name, Location = asset.Location.Name, InventoryOwner = asset.InventoryOwner
+                }));
             }
+            return PartialView("_viewInventorySearchResults", searchResults);
         }
 
         [HttpGet]
         public PartialViewResult EditAsset(int assetKey)
         {
-            var a= repo.FindAssetByKey(assetKey);
+            var a= _repo.FindAssetByKey(assetKey);
             var afvm = new AssetFormViewModel
             {
                 AssetTag = a.AssetKey.ToString(),
@@ -119,13 +117,12 @@ namespace InventoryManagement_BT.Controllers
                 SelectedProductId = a.Product.Id,
                 SelectedClientSiteId = a.ClientSite.Id,
                 SelectedLocationId = a.Location.Id,
-                Manufacturers = repo.GetManufacturers(),
-                Models = repo.GetModels(),
-                Locations = repo.GetLocations(),
-                ClientSites = repo.GetClientSites(),
-                Products = repo.GetProducts()
+                Manufacturers = _repo.GetManufacturers(),
+                Models = _repo.GetModels(),
+                Locations = _repo.GetLocations(),
+                ClientSites = _repo.GetClientSites(),
+                Products = _repo.GetProducts()
             };
-
 
             ViewBag.ModalName = "Edit";
 
@@ -139,11 +136,11 @@ namespace InventoryManagement_BT.Controllers
             {
                 AssetTag = assetKey,
                 InventoryOwner = inventoryOwner,
-                Manufacturers = repo.GetManufacturers(),
-                Models = repo.GetModels(),
-                Locations = repo.GetLocations(),
-                ClientSites = repo.GetClientSites(),
-                Products = repo.GetProducts()
+                Manufacturers = _repo.GetManufacturers(),
+                Models = _repo.GetModels(),
+                Locations = _repo.GetLocations(),
+                ClientSites = _repo.GetClientSites(),
+                Products = _repo.GetProducts()
             };
 
 
@@ -156,22 +153,22 @@ namespace InventoryManagement_BT.Controllers
         [HttpPost]
         public ActionResult UpdateAsset(AssetFormViewModel avm)
         {
-            avm.Manufacturers = repo.GetManufacturers();
-            avm.Models = repo.GetModels();
-            avm.Locations = repo.GetLocations();
-            avm.ClientSites = repo.GetClientSites();
-            avm.Products = repo.GetProducts();
+            avm.Manufacturers = _repo.GetManufacturers();
+            avm.Models = _repo.GetModels();
+            avm.Locations = _repo.GetLocations();
+            avm.ClientSites = _repo.GetClientSites();
+            avm.Products = _repo.GetProducts();
 
             if (ModelState.IsValid)
             {
                 Response.StatusCode = 200;
                 var a = new Asset
                 {
-                    Product = repo.GetProductById(avm.SelectedProductId),
-                    Manufacturer = repo.GetManufacturerById(avm.SelectedManufacturerId),
-                    Model = repo.GetModelById(avm.SelectedModelId),
-                    Location = repo.GetLocationById(avm.SelectedLocationId),
-                    ClientSite = repo.GetClientSiteById(avm.SelectedClientSiteId),
+                    Product = _repo.GetProductById(avm.SelectedProductId),
+                    Manufacturer = _repo.GetManufacturerById(avm.SelectedManufacturerId),
+                    Model = _repo.GetModelById(avm.SelectedModelId),
+                    Location = _repo.GetLocationById(avm.SelectedLocationId),
+                    ClientSite = _repo.GetClientSiteById(avm.SelectedClientSiteId),
                     AssetKey = int.Parse(avm.AssetTag),
                     SerialNumber = avm.SerialNumber,
                     ItemName = avm.ItemName,
@@ -180,7 +177,7 @@ namespace InventoryManagement_BT.Controllers
                     InventoryDate = avm.InventoryDate,
                     IsDisposed = avm.IsDisposed
                 };
-                repo.UpdateAsset(a);
+                _repo.UpdateAsset(a);
                 return PartialView("_modifyAsset", avm);
             }
 
@@ -192,11 +189,11 @@ namespace InventoryManagement_BT.Controllers
         [Route("submit")]
         public ActionResult UpdateOwnerAndDate(string assetKey = "", string date = "", string inventoriedBy = "")
         {
-            var asset = repo.FindAssetByKey(int.Parse(assetKey));
+            var asset = _repo.FindAssetByKey(int.Parse(assetKey));
             asset.InventoryDate = DateTime.Parse(date);
             asset.InventoriedBy = inventoriedBy;
 
-            repo.UpdateAsset(asset);
+            _repo.UpdateAsset(asset);
 
             return RedirectToAction("TakeInventory");
         }

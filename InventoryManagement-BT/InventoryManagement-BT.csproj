@@ -215,14 +215,12 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="ViewModels\AccountViewModels.cs" />
     <Compile Include="Models\Asset.cs" />
     <Compile Include="ViewModels\AssetFormViewModel.cs" />
     <Compile Include="Models\ClientSite.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="ViewModels\InventoryFormViewModel.cs" />
     <Compile Include="Models\Location.cs" />
-    <Compile Include="ViewModels\ManageViewModels.cs" />
     <Compile Include="Models\Manufacturer.cs" />
     <Compile Include="Models\Model.cs" />
     <Compile Include="Models\Product.cs" />
