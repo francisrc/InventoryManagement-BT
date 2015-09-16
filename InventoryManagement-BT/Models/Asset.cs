@@ -84,6 +84,7 @@ namespace InventoryManagement_BT.Models
             PurchaseDate = newAsset.PurchaseDate;
             InventoriedBy = newAsset.InventoriedBy;
             InventoryDate = newAsset.InventoryDate;
+            InventoryOwner = newAsset.InventoryOwner;
             IsDisposed = newAsset.IsDisposed;
             Location = newAsset.Location;
         }

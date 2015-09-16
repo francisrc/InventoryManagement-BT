@@ -69,8 +69,7 @@
                 $("#add-inventory-container").html(data);
                 ShowAddInventoryModal();
                 var assetTag = $("#AssetTag");
-                var val = assetTag.data("disabled");
-                if (val === "False")
+                if (assetTag.data("disabled") === "False")
                     assetTag.attr("readonly", "readonly");
             },
             error: function (xhr) {
@@ -85,9 +84,9 @@
             url: $(this).attr("action"),
             type: "POST",
             data: $(this).serialize(),
-            success: function (data) {
+            success: function () {
                 CloseModal();
-                $("#add-inventory-modal").html(data);
+                location.reload();
             },
             error: function (xhr) {
                 $(".update-asset-form").html(xhr.responseText);

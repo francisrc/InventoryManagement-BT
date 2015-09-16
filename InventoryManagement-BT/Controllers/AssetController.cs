@@ -151,7 +151,7 @@ namespace InventoryManagement_BT.Controllers
         }
 
         [HttpPost]
-        public ActionResult UpdateAsset(AssetFormViewModel avm)
+        public PartialViewResult UpdateAsset(AssetFormViewModel avm)
         {
             avm.Manufacturers = _repo.GetManufacturers();
             avm.Models = _repo.GetModels();
