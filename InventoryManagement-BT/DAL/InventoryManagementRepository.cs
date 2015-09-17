@@ -1,13 +1,10 @@
-﻿using InventoryManagement_BT.DAL;
-using InventoryManagement_BT.Models;
+﻿using InventoryManagement_BT.Models;
 using InventoryManagement_BT.ViewModels;
-using System;
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
-using System.Web;
 
-namespace InventoryManagement_BT.Services
+namespace InventoryManagement_BT.DAL
 {
     public class InventoryManagementRepository
     {

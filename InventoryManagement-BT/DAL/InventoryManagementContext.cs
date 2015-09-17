@@ -20,13 +20,13 @@ namespace InventoryManagement_BT.DAL
         public InventoryManagementContext()
             : base("InventoryManagementContext")
         {
-            Database.SetInitializer(new DefaultDBInitializer());
+            Database.SetInitializer(new DefaultDbInitializer());
         }
 
         public DbSet<AssetFormViewModel> AssetFormViewModels { get; set; }
     }
 
-    public class DefaultDBInitializer : DropCreateDatabaseIfModelChanges<InventoryManagementContext>
+    public class DefaultDbInitializer : DropCreateDatabaseIfModelChanges<InventoryManagementContext>
     {
         protected override void Seed(InventoryManagementContext context)
         {
@@ -65,7 +65,7 @@ namespace InventoryManagement_BT.DAL
             }
         }
 
-        private void CreateDefaultLocations(InventoryManagementContext context)
+        private static void CreateDefaultLocations(InventoryManagementContext context)
         {
             //create locations
             IList<Location> defaultLocations = new List<Location>();
@@ -84,7 +84,7 @@ namespace InventoryManagement_BT.DAL
 
         }
 
-        private void CreateDefaultClientSites(InventoryManagementContext context)
+        private static void CreateDefaultClientSites(InventoryManagementContext context)
         {
             //create clientsites
             IList<ClientSite> defaultClientSites = new List<ClientSite>();
@@ -104,7 +104,7 @@ namespace InventoryManagement_BT.DAL
 
         }
 
-        private void CreateDefaultProducts(InventoryManagementContext context)
+        private static void CreateDefaultProducts(InventoryManagementContext context)
         {
             //create clientsites
             IList<Product> defaultProducts = new List<Product>();
@@ -124,7 +124,7 @@ namespace InventoryManagement_BT.DAL
 
         }
 
-        private void CreateDefaultManufacturers(InventoryManagementContext context)
+        private static void CreateDefaultManufacturers(InventoryManagementContext context)
         {
             //create clientsites
             IList<Manufacturer> defaultManufacturers = new List<Manufacturer>();
@@ -143,7 +143,7 @@ namespace InventoryManagement_BT.DAL
             }
         }
 
-        private void CreateDefaultModels(InventoryManagementContext context)
+        private static void CreateDefaultModels(InventoryManagementContext context)
         {
             //create clientsites
             IList<Model> defaultModels = new List<Model>();

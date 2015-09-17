@@ -11,8 +11,7 @@ namespace InventoryManagement_BT
 
             routes.MapMvcAttributeRoutes();
 
-            routes.MapRoute(
-                name: "Take Inventory",
+            routes.MapRoute("Take Inventory",
                 url: "inventory/",
                 defaults: new { controller = "Asset", action = "TakeInventory" });
 

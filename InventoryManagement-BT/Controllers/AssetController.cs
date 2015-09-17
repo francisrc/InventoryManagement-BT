@@ -1,6 +1,6 @@
 ﻿using InventoryManagement_BT.Models;
 using InventoryManagement_BT.ViewModels;
-using InventoryManagement_BT.Services;
+using InventoryManagement_BT.DAL;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -186,7 +186,6 @@ namespace InventoryManagement_BT.Controllers
         }
 
         [HttpGet]
-        [Route("submit")]
         public ActionResult UpdateOwnerAndDate(string assetKey = "", string date = "", string inventoriedBy = "")
         {
             var asset = _repo.FindAssetByKey(int.Parse(assetKey));
