@@ -374,14 +374,14 @@
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Asset\TakeInventory.cshtml" />
-    <Content Include="Views\Shared\_searchResults.cshtml" />
+    <Content Include="Views\Shared\_takeInventorySearchResults.cshtml" />
     <Content Include="Views\Asset\ViewInventory.cshtml" />
     <Content Include="Views\Shared\_viewInventorySearchResults.cshtml" />
-    <Content Include="Views\Shared\_modifyAsset.cshtml" />
+    <Content Include="Views\Shared\_modifyAssetModal.cshtml" />
     <Content Include="Views\Asset\Index.cshtml" />
     <Content Include="Views\Shared\_takeInventoryForm.cshtml" />
-    <Content Include="Views\Shared\_updateAssetForm.cshtml" />
-    <Content Include="Views\Shared\_searchInventoryForm.cshtml" />
+    <Content Include="Views\Shared\_modifyAssetForm.cshtml" />
+    <Content Include="Views\Shared\_viewInventoryForm.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

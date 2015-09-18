@@ -26,11 +26,6 @@ namespace InventoryManagement_BT.DAL
             _manufacturers = _db.Manufacturers.ToList();
         }
 
-        public Asset FindAssetByKey(int? key)
-        {
-            return key == null ? null : _db.Assets.DefaultIfEmpty().SingleOrDefault(a => a.AssetKey == key);
-        }
-
         public List<Asset> GetAllAssets()
         {
             return _db.Assets.ToList();
@@ -44,19 +39,6 @@ namespace InventoryManagement_BT.DAL
         public List<ClientSite> GetClientSites()
         {
             return _clientSites;
-        }
-
-        public List<Asset> SearchAssets(SearchViewModel svm)
-        {
-            if (svm.KeywordSearch == null)
-            {
-                return null;
-            }
-
-            var properties = typeof(SearchableAsset).GetProperties().Where(prop => prop.PropertyType == svm.KeywordSearch.GetType());
-
-            var wildcardMatches = _db.Assets.AsEnumerable().Where(asset => properties.Any(prop => ((prop.GetValue(asset.ConvertToSearchable(), null) == null) ? "" : prop.GetValue(asset.ConvertToSearchable(), null).ToString().ToLower()).Contains(svm.KeywordSearch.ToLower()))).ToList();
-            return wildcardMatches;
         }
 
         public List<Product> GetProducts()
@@ -74,7 +56,47 @@ namespace InventoryManagement_BT.DAL
             return _manufacturers;
         }
 
-        public Asset FindBySearchQuery(InventoryFormViewModel model)
+        public Asset FindAssetByKey(int? key)
+        {
+            return key == null ? null : _db.Assets.DefaultIfEmpty().SingleOrDefault(a => a.AssetKey == key);
+        }
+
+        /// <summary>
+        /// Searches for any Assets with any column values that match on the given search term
+        /// The search will also return Assets that match the specified client or location
+        /// </summary>
+        /// <param name="svm"></param>
+        /// <returns></returns>
+        public List<Asset> SearchAssets(SearchViewModel svm)
+        {
+            if (svm.KeywordSearch == null)
+            {
+                return null;
+            }
+
+            var properties = typeof(SearchableAsset).GetProperties().Where(prop => prop.PropertyType == svm.KeywordSearch.GetType());
+
+            var wildcardMatches = _db.Assets.AsEnumerable().Where(asset => properties.Any(prop => ((prop.GetValue(asset.ConvertToSearchable(), null) == null) ? "" : prop.GetValue(asset.ConvertToSearchable(), null).ToString().ToLower()).Contains(svm.KeywordSearch.ToLower()))).ToList();
+
+            //searches that match the selected location
+            wildcardMatches.AddRange(_db.Assets.Where(x => x.Location.Id == svm.SelectedLocationId));
+
+            //searches that match the selected client site
+            wildcardMatches.AddRange(_db.Assets.Where(x => x.ClientSite.Id == svm.SelectedClientSiteId));
+
+            //searches that match the selected asset key
+            wildcardMatches.AddRange(_db.Assets.Where(x => x.AssetKey == svm.Item));
+
+            return wildcardMatches;
+        }
+
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns></returns>
+        public Asset FindAssetByInventorySearchQuery(InventoryFormViewModel model)
         {
             return _db.Assets
                 .DefaultIfEmpty()
@@ -88,11 +110,6 @@ namespace InventoryManagement_BT.DAL
         {
             _db.Assets.Add(a);
             _db.SaveChanges();
-        }
-
-        public Product GetProductById(int selectedProductId)
-        {
-            return _db.Products.Find(selectedProductId);
         }
 
         public void UpdateAsset(Asset newAsset)
@@ -111,6 +128,11 @@ namespace InventoryManagement_BT.DAL
 
             }
             _db.SaveChanges();
+        }
+
+        public Product GetProductById(int selectedProductId)
+        {
+            return _db.Products.Find(selectedProductId);
         }
 
         public Manufacturer GetManufacturerById(int selectedManufacturerId)

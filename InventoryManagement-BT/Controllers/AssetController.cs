@@ -12,7 +12,7 @@ namespace InventoryManagement_BT.Controllers
     public class AssetController : Controller
     {
         private readonly InventoryManagementRepository _repo = new InventoryManagementRepository();
-        private const int PageSize = 3;
+        private const int PageSize = 25; //move to global reference?
 
         public ViewResult Index(int? page)
         {
@@ -32,11 +32,8 @@ namespace InventoryManagement_BT.Controllers
                 Locations = _repo.GetLocations(),
                 ClientSites = _repo.GetClientSites(),
                 InventoryDate = DateTime.Now.ToString("MM/dd/yyyy"),
-                InventoriedBy = "Robert Newton"
+                InventoriedBy = "Robert Newton"             //Default used since we don't have AD connected
             };
-
-            //Default used since we don't have AD connected
-
             return View(ivvm);
         }
 
@@ -46,7 +43,7 @@ namespace InventoryManagement_BT.Controllers
 
             if (ModelState.IsValid)
             {
-                var item = _repo.FindBySearchQuery(model);
+                var item = _repo.FindAssetByInventorySearchQuery(model);
 
                 if (item != null && DateTime.Now.AddDays(-90) < item.InventoryDate)
                 {
@@ -57,7 +54,7 @@ namespace InventoryManagement_BT.Controllers
                 ViewBag.InventoryOwner = model.InventoryOwner;
                 ViewBag.InventoriedBy = "Robert Newton"; //Default used since we don't have AD connected
 
-                return PartialView("_searchResults", item);
+                return PartialView("_takeInventorySearchResults", item);
             }
 
             Response.StatusCode = 404;
@@ -88,7 +85,7 @@ namespace InventoryManagement_BT.Controllers
                 svm.ClientSites = _repo.GetClientSites();
 
                 Response.StatusCode = 404;
-                return PartialView("_searchInventoryForm", svm);
+                return PartialView("_viewInventoryForm", svm);
             }
 
             var searchResults = new List<SearchResultsViewModel>();
@@ -99,6 +96,7 @@ namespace InventoryManagement_BT.Controllers
                 {
                     AssetTag = asset.AssetKey, Product = asset.Product.Name, Manufacturer = asset.Manufacturer.Name, Model = asset.Model.Name, Location = asset.Location.Name, InventoryOwner = asset.InventoryOwner
                 }));
+
             }
             return PartialView("_viewInventorySearchResults", searchResults);
         }
@@ -106,6 +104,8 @@ namespace InventoryManagement_BT.Controllers
         [HttpGet]
         public PartialViewResult EditAsset(int assetKey)
         {
+            ViewBag.ModalName = "Edit";
+
             var a= _repo.FindAssetByKey(assetKey);
             var afvm = new AssetFormViewModel
             {
@@ -129,9 +129,7 @@ namespace InventoryManagement_BT.Controllers
                 Products = _repo.GetProducts()
             };
 
-            ViewBag.ModalName = "Edit";
-
-            return PartialView("_modifyAsset", afvm);
+            return PartialView("_modifyAssetModal", afvm);
         }
 
         [HttpGet]
@@ -152,7 +150,7 @@ namespace InventoryManagement_BT.Controllers
             ViewBag.ModalName = "Add";
 
 
-            return PartialView("_modifyAsset", avm);
+            return PartialView("_modifyAssetModal", avm);
         }
 
         [HttpPost]
@@ -183,11 +181,11 @@ namespace InventoryManagement_BT.Controllers
                     IsDisposed = avm.IsDisposed
                 };
                 _repo.UpdateAsset(a);
-                return PartialView("_modifyAsset", avm);
+                return PartialView("_modifyAssetModal", avm);
             }
 
             Response.StatusCode = 422;
-            return PartialView("_updateAssetForm", avm);
+            return PartialView("_modifyAssetForm", avm);
         }
 
         [HttpGet]

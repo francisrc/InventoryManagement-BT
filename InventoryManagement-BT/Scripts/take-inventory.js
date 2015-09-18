@@ -1,4 +1,5 @@
 ﻿$(document).ready(function () {
+
     $(".take-inventory-form").on("submit", function (e) {
         e.preventDefault();
         $.ajax({

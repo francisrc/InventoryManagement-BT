@@ -6,7 +6,7 @@
         <div class="col-md-12">
             <span class="error-text"> Item @ViewBag.ItemKey Not Found</span>
             @Html.ActionLink("Add Item?", "AddAsset", "Asset", new  { assetKey = ViewBag.ItemKey, inventoryOwner = ViewBag.InventoryOwner}, new { @class = "add-asset-link btn btn-primary" })
-            @Html.ActionLink("Cancel", "TakeInventory", "Asset", null, new { @class = "btn btn-danger" })
+            @Html.ActionLink("Cancel", "TakeInventory", "Asset", null, new { @class = "btn btn-danger cancel-btn" })
         </div>
     </div>
 
@@ -18,22 +18,22 @@ else
         <thead>
             <tr>
                 <th>
-                    Asset Tag
+                    @Html.DisplayNameFor(x => x.AssetKey)
                 </th>
                 <th>
-                    Product
+                    @Html.DisplayNameFor(x => x.Product)
                 </th>
                 <th>
-                    Manufacturer
+                    @Html.DisplayNameFor(x => x.Manufacturer)
                 </th>
                 <th>
-                    Model
+                    @Html.DisplayNameFor(x => x.Model)
                 </th>
                 <th>
-                    Serial Number
+                    @Html.DisplayNameFor(x => x.SerialNumber)
                 </th>
                 <th>
-                    Item Name
+                    @Html.DisplayNameFor(x => x.ItemName)
                 </th>
             </tr>
         </thead>
