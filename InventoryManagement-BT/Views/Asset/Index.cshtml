@@ -1,94 +1,97 @@
-﻿@model IEnumerable<InventoryManagement_BT.Models.Asset>
+﻿@model PagedList.IPagedList<InventoryManagement_BT.Models.Asset>
+@using PagedList.Mvc
 
 <h2>All Current Assets</h2>
 <table class="table sortable">
     <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.AssetKey)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.SerialNumber)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.ItemName)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.PurchaseDate)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.InventoryOwner)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.InventoriedBy)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.InventoryDate)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.IsDisposed)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Product)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Manufacturer)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Model)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Location)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.ClientSite)
-            </th>
-        </tr>
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model[0].AssetKey)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model[0].SerialNumber)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model[0].ItemName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model[0].PurchaseDate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model[0].InventoryOwner)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model[0].InventoriedBy)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model[0].InventoryDate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model[0].IsDisposed)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model[0].Product)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model[0].Manufacturer)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model[0].Model)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model[0].Location)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model[0].ClientSite)
+        </th>
+    </tr>
     </thead>
     <tbody>
-        @foreach (var item in Model)
-        {
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelitem => item.AssetKey)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.SerialNumber)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.ItemName)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.PurchaseDate)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.InventoryOwner)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.InventoriedBy)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.InventoryDate)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.IsDisposed)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Product.Name)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Manufacturer.Name)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Model.Name)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Location.Name)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.ClientSite.Name)
-                </td>
-            </tr>
-        }
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelitem => item.AssetKey)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.SerialNumber)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ItemName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PurchaseDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.InventoryOwner)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.InventoriedBy)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.InventoryDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.IsDisposed)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Product.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Manufacturer.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Model.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Location.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ClientSite.Name)
+            </td>
+        </tr>
+    }
     </tbody>
 </table>
+    Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
+    @Html.PagedListPager(Model, page => Url.Action("Index", "Asset", new {page}))

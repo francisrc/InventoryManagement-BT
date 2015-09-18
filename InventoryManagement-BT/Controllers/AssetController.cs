@@ -5,17 +5,22 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
+using PagedList;
 
 namespace InventoryManagement_BT.Controllers
 {
     public class AssetController : Controller
     {
         private readonly InventoryManagementRepository _repo = new InventoryManagementRepository();
+        private const int PageSize = 3;
 
-        public ViewResult Index()
+        public ViewResult Index(int? page)
         {
             var assets = _repo.GetAllAssets();
-            return View(assets);
+
+            var pageNumber = (page ?? 1);
+
+            return View(assets.ToPagedList(pageNumber, PageSize));
         }
 
         // GET: TakeInventory
