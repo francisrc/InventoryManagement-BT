@@ -87,7 +87,7 @@ namespace InventoryManagement_BT.DAL
             //searches that match the selected asset key
             wildcardMatches.AddRange(_db.Assets.Where(x => x.AssetKey == svm.Item));
 
-            return wildcardMatches;
+            return wildcardMatches.Distinct().ToList();
         }
 
 
